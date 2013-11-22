@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip" 
+    android:background="@color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/text_vew_line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textColor="@color/white" />
+
+    <EditText
+        android:id="@+id/text_view_scheduler"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="214dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/button_ok"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:text="@string/ok" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:text="@string/cancel" />
+
+    </LinearLayout>
+    
+</LinearLayout>

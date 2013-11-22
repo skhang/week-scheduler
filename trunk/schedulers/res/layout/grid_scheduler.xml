@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.scheduler.dragdrop.DragLayer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drag_layer"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:weightSum="1.0" >
+
+            <GridView
+                android:id="@+id/image_grid_view"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.8"
+                android:background="@color/grid_background"
+                android:gravity="center"
+                android:horizontalSpacing="2dip"
+                android:numColumns="@integer/num_columns"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="2dip" />
+
+            <LinearLayout
+                android:id="@+id/bottom_part"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/grid_background"
+                android:orientation="horizontal"
+                android:weightSum="1.0" >
+
+                <HorizontalScrollView
+                    android:layout_width="300dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1.05"
+                    android:background="@color/grid_background" >
+
+                    <LinearLayout
+                        android:id="@+id/mygallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+
+                <com.scheduler.dragdrop.DeleteZone
+                    android:id="@+id/delete_zone_view"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/delete_zone" 
+                    android:background="@color/grid_background"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</com.scheduler.dragdrop.DragLayer>
