@@ -52,9 +52,8 @@ public class ImageCellAdapter extends BaseAdapter {
 		mParentView = parent;
 
 		ImageCell v = null;
+		Integer imageId = taskMap.get(position);
 		if (convertView == null) {
-			
-			Integer imageId = taskMap.get(position);
 			if (imageId != null) {
 				v = new ImageCell(mContext);
 				v.setImageResource(imageId);
@@ -71,10 +70,16 @@ public class ImageCellAdapter extends BaseAdapter {
 			v.setLayoutParams(new GridView.LayoutParams(85, 85));
 			v.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			v.setPadding(8, 8, 8, 8);
+			
 		} else {
 			v = (ImageCell) convertView;
-			v.mEmpty = true;
-			v.setBackgroundResource(R.color.cell_empty);
+			if (imageId != null) {
+				v.mEmpty = false;
+				v.setBackgroundResource(R.color.cell_filled);
+			} else {
+				v.mEmpty = true;
+				v.setBackgroundResource(R.color.cell_empty);
+			}
 		}
 
 		v.mCellNumber = position;
