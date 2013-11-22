@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Schedulers</string>
+    <string name="action_settings">Settings</string>
+    <string name="my_schedulers">My schedulers</string>
+    <string name="name">Name</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_scheduler">New scheduler</string>
+    <string name="scheduler_added">Scheduler has been added successfully</string>
+    <string name="scheduler_deleted">Scheduler has been deleted successfully</string>
+    <string name="scheduler_picture">My picture</string>
+    <string name="edit_scheduler">Edit scheduler</string>
+    <string name="delete_scheduler">Delete scheduler</string>
+
+    <!-- Drag Drop -->
+    <integer name="num_images">21</integer>
+    <integer name="num_columns">7</integer>
+    <string name="instructions">Add an image. Then press on image to drag it. Drop it on the grid.</string>
+    <string name="hello">Add an image. Then drag it onto the grid.</string>
+
+</resources>
