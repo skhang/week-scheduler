@@ -9,6 +9,7 @@
     <string name="cancel">Cancel</string>
     <string name="new_scheduler">New scheduler</string>
     <string name="scheduler_added">Scheduler has been added successfully</string>
+    <string name="scheduler_modified">Scheduler has been modified successfully</string>
     <string name="scheduler_deleted">Scheduler has been deleted successfully</string>
     <string name="scheduler_picture">My picture</string>
     <string name="edit_scheduler">Edit scheduler</string>
