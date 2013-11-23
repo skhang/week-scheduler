@@ -1,9 +1,13 @@
 package com.scheduler;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
@@ -19,7 +23,7 @@ import com.scheduler.dragdrop.DragActivity;
 public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 
 	private Context context;
-	private String currentData;
+	//private String currentData;
 	private SchedulerDBAdapter dbAdapter;
 	private Cursor mainCursor;
 	
@@ -38,14 +42,14 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			
 			// Bind text scheduler name
 			int columnId = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY);
-			currentData = cursor.getString(columnId);
+			String schedulerId = cursor.getString(columnId);
 			
 			int columnName = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
 			String name = cursor.getString(columnName);
 			
 			TextView textSchedulerName = (TextView) view;
 			textSchedulerName.setText(name);
-			textSchedulerName.setTag(currentData);
+			textSchedulerName.setTag(schedulerId);
 			//textSchedulerName.setBackgroundResource(R.drawable.rounded_corners);
 
 			textSchedulerName.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +68,10 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			
 			// Bind picture of scheduler
 			int columnId = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY);
-			currentData = cursor.getString(columnId);
+			String schedulerId = cursor.getString(columnId);
 			
 			ImageView imageScheduler = (ImageView) view;
-			imageScheduler.setTag(currentData);
+			imageScheduler.setTag(schedulerId);
 			imageScheduler.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
@@ -83,14 +87,53 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 		if (view.getId() == R.id.img_edit_scheduler) {
 			// Bind edit Imagebutton
 			int columnId = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY);
-			currentData = cursor.getString(columnId);
-
+			String schedulerId = cursor.getString(columnId);
+			
+			int columnName = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
+			String name = cursor.getString(columnName);
+			
 			ImageButton editScheduler = (ImageButton) view;
-			editScheduler.setTag(currentData);
+			editScheduler.setTag(schedulerId + "#" + name);
+			
 			editScheduler.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					Toast.makeText(context, "EDIT " + currentData, Toast.LENGTH_SHORT).show();
+					
+					final Dialog dialog = new Dialog(arg0.getContext());
+					dialog.setContentView(R.layout.edit_scheduler_dialog);
+					dialog.setTitle(R.string.new_scheduler);
+					dialog.show();
+
+					ImageButton editScheduler = (ImageButton) arg0;
+					
+					String[] data = editScheduler.getTag().toString().split("#");
+					final String schedulerId = data[0];
+					final String schedulerName = data[1];
+					EditText editText = (EditText) dialog.findViewById(R.id.text_view_scheduler);
+					editText.setText(schedulerName);
+					editText.setTag(schedulerId);
+					
+					Button buttonOK = (Button) dialog.findViewById(R.id.button_ok);
+					buttonOK.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							EditText editText = (EditText) dialog.findViewById(R.id.text_view_scheduler);
+							dbAdapter.updateScheduler(Integer.valueOf(schedulerId), editText.getText().toString());
+							mainCursor.requery();
+							//Toast.makeText(context, R.string.scheduler_modified, Toast.LENGTH_SHORT).show();
+							dialog.dismiss();
+						}
+					});
+
+					Button buttonCancel = (Button) dialog.findViewById(R.id.button_cancel);
+					buttonCancel.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							// Close dialog
+							dialog.dismiss();
+						}
+					});
+					
 				}
 			});
 			return true;
@@ -99,17 +142,19 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 		if (view.getId() == R.id.img_delete_scheduler) {
 			// Bind delete Imagebutton
 			int columnId = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY);
-			currentData = cursor.getString(columnId);
+			String schedulerId = cursor.getString(columnId);
 			
 			ImageButton deleteScheduler = (ImageButton) view;
-			deleteScheduler.setTag(currentData);
+			deleteScheduler.setTag(schedulerId);
 			deleteScheduler.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					dbAdapter.deleteScheduler(Long.valueOf(currentData));
+					ImageButton deleteScheduler = (ImageButton) arg0;
+					String schedulerId = deleteScheduler.getTag().toString();
+					dbAdapter.deleteScheduler(Long.valueOf(schedulerId));
 					mainCursor.requery();
 					
-					Toast.makeText(context, R.string.scheduler_deleted + " (" + currentData + ")", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, R.string.scheduler_deleted, Toast.LENGTH_SHORT).show();
 				}
 			});
 			return true;
