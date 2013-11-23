@@ -4,7 +4,7 @@
     <color name="grid_background">#F5FAFA</color>
     <color name="cell_empty">#6D929B</color>
     <color name="cell_filled">#ACD1E9</color>
-    <color name="cell_empty_hover">#6D929B</color>
+    <color name="cell_empty_hover">#E8D0A9</color>
     <color name="cell_filled_hover">#C1DAD6</color>
     
     <color name="red">#E8D0A9</color>
