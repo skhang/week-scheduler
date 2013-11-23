@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,6 +59,8 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	private LinearLayout myGallery;
 	private String schedulerId;
 
+	static final String[] DAYS_OF_WEEK = new String[] {"L", "M", "X", "J", "V", "S", "D"};
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
@@ -84,6 +87,11 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		//Toast.makeText(getApplicationContext(), getResources().getString(R.string.instructions), Toast.LENGTH_LONG).show();
 		
 		loadAllTasks();
+		
+		GridView gridViewHeader = (GridView) findViewById(R.id.grid_header);
+		 
+		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, DAYS_OF_WEEK);
+		gridViewHeader.setAdapter(new TextAdapter(this));
 	}
 	
 	private Map<Integer,Integer> loadSchedulerTasks() {
@@ -131,7 +139,7 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 			ImageCell newView = new ImageCell(this);
 			newView.setTag(iconId);
 			newView.setImageResource(iconId);
-			newView.setLayoutParams(new LayoutParams(100, 100));
+			newView.setLayoutParams(new LayoutParams(70, 70));
 			newView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			newView.mEmpty = false;
 			newView.mCellNumber = -1;

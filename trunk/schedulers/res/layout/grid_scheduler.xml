@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.scheduler.dragdrop.DragLayer xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drag_layer"
     android:layout_width="fill_parent"
@@ -13,9 +12,25 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:orientation="vertical" >
+
+            <GridView
+                android:id="@+id/grid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@color/grid_background"
+                android:gravity="center"
+                android:numColumns="@integer/num_columns"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="0dip" 
+                android:horizontalSpacing="0dip"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:weightSum="1.0">
+            android:orientation="vertical" >
 
             <GridView
                 android:id="@+id/image_grid_view"
@@ -36,12 +51,13 @@
                 android:layout_gravity="bottom"
                 android:background="@color/grid_background"
                 android:orientation="horizontal"
-                android:weightSum="1.0" 
-                android:padding='6dip' >
+                android:padding="6dip"
+                android:weightSum="1.0" >
 
                 <HorizontalScrollView
                     android:layout_width="300dp"
-                    android:layout_height="80dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom"
                     android:layout_weight="1.00"
                     android:background="@color/grid_background" >
 
@@ -54,10 +70,11 @@
 
                 <com.scheduler.dragdrop.DeleteZone
                     android:id="@+id/delete_zone_view"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@color/grid_background"
                     android:src="@drawable/delete_zone" 
-                    android:background="@color/grid_background"/>
+                     android:layout_gravity="bottom"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
