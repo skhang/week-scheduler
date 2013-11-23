@@ -11,9 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,8 +50,6 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	private DragController mDragController; // Object that handles a drag-drop sequence. It intersacts with DragSource and DropTarget objects.
 	private DragLayer mDragLayer; // The ViewGroup within which an object can be dragged.
 	private DeleteZone mDeleteZone; // A drop target that is used to remove objects from the screen.
-	private int mImageCount = 0; // The number of images that have been added to screen.
-	private ImageCell mLastNewCell = null; // The last ImageCell added to the screen when Add Image is clicked.
 	private boolean mLongClickStartsDrag = true; // If true, it takes a long click to start the drag operation. Otherwise, any touch event starts a  drag.
 	
 	private GridView gridView;
@@ -89,9 +87,18 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		loadAllTasks();
 		
 		GridView gridViewHeader = (GridView) findViewById(R.id.grid_header);
-		 
-		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, DAYS_OF_WEEK);
 		gridViewHeader.setAdapter(new TextAdapter(this));
+		// Vertical scrolling disablled
+		gridViewHeader.setOnTouchListener(new OnTouchListener(){
+		    @Override
+		    public boolean onTouch(View v, MotionEvent event) {
+		        if(event.getAction() == MotionEvent.ACTION_MOVE){
+		            return true;
+		        }
+		        return false;
+		    }
+
+		});
 	}
 	
 	private Map<Integer,Integer> loadSchedulerTasks() {
@@ -130,8 +137,8 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		
 		myGallery = (LinearLayout) findViewById(R.id.mygallery);
 
-		int[] iconIds = {R.drawable.ballet_icon, R.drawable.basketball_icon, R.drawable.beach_icon,
-				R.drawable.bike_icon, R.drawable.birthday_icon, R.drawable.blackboard_icon,
+		int[] iconIds = {R.drawable.blackboard_icon, R.drawable.homework_icon, R.drawable.games_icon, R.drawable.guitar_icon, R.drawable.ballet_icon, R.drawable.basketball_icon, R.drawable.beach_icon,
+				R.drawable.bike_icon, R.drawable.birthday_icon, R.drawable.museum_icon, R.drawable.piano_icon,
 				R.drawable.bouncycastle_icon, R.drawable.cinema_icon, R.drawable.doctor_icon,
 				R.drawable.english_icon, R.drawable.football_icon, R.drawable.swimming_icon};
 		
@@ -143,11 +150,9 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 			newView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			newView.mEmpty = false;
 			newView.mCellNumber = -1;
-			mLastNewCell = newView;
 			newView.setOnClickListener(this);
 			newView.setOnLongClickListener(this);
 			newView.setOnTouchListener(this);
-			mImageCount++;
 			myGallery.addView(newView);
 		}
 	}
