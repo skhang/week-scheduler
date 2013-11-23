@@ -44,9 +44,10 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			String name = cursor.getString(columnName);
 			
 			TextView textSchedulerName = (TextView) view;
-			textSchedulerName.setText(name + " " + currentData);
+			textSchedulerName.setText(name);
 			textSchedulerName.setTag(currentData);
-			
+			//textSchedulerName.setBackgroundResource(R.drawable.rounded_corners);
+
 			textSchedulerName.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
