@@ -18,8 +18,6 @@ import com.scheduler.R;
  */
 public class ImageCellAdapter extends BaseAdapter {
 
-	public static final int DEFAULT_NUM_IMAGES = 8;
-
 	public ViewGroup mParentView = null;
 	private Context mContext;
 	Map<Integer,Integer> taskMap;
