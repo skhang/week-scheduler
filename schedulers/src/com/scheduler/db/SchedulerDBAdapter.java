@@ -98,13 +98,14 @@ public class SchedulerDBAdapter {
 	}
 
 	/**
-	 * Delete a scheduler.
+	 * Delete a scheduler and each tasks.
 	 * 
 	 * @param id Identifier of scheduler
 	 * 
 	 * @return true if scheduler has deleted, else false
 	 */
 	public boolean deleteScheduler(long id) {
+		deleteTasks(id);
 		return database.delete(SCHEDULER_TABLE_NAME, SCHEDULER_PRIMARY_KEY + "=" + id, null) > 0;
 	}
 
