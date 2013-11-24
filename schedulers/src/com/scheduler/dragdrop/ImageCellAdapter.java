@@ -65,9 +65,9 @@ public class ImageCellAdapter extends BaseAdapter {
 				v.setBackgroundResource(R.color.cell_empty);
 			}
 			
-			v.setLayoutParams(new GridView.LayoutParams(85, 85));
+			//v.setLayoutParams(new GridView.LayoutParams(85, 85));
 			v.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			v.setPadding(8, 8, 8, 8);
+			//v.setPadding(8, 8, 8, 8);
 			
 		} else {
 			v = (ImageCell) convertView;
