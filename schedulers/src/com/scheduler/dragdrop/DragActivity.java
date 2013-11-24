@@ -56,8 +56,6 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	private SchedulerDBAdapter dbAdapter;
 	private LinearLayout myGallery;
 	private String schedulerId;
-
-	static final String[] DAYS_OF_WEEK = new String[] {"L", "M", "X", "J", "V", "S", "D"};
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
