@@ -3,6 +3,7 @@ package com.scheduler.dragdrop;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -78,6 +79,11 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 
 		loadAllTasks();
 		
+		loadHeader();
+	}
+	
+	private void loadHeader() {
+		
 		GridView gridViewHeader = (GridView) findViewById(R.id.grid_header);
 		gridViewHeader.setAdapter(new TextAdapter(this));
 		// Vertical scrolling disablled on header
@@ -89,10 +95,10 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		        }
 		        return false;
 		    }
-
 		});
 	}
 	
+	@SuppressLint("UseSparseArrays")
 	private Map<Integer,Integer> loadSchedulerTasks() {
 		
 		// Map of cellId and imageId
@@ -225,13 +231,12 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	}
 
 	/**
-	 * This is the starting point for a drag operation if mLongClickStartsDrag
-	 * is false. It looks for the down event that gets generated when a user
-	 * touches the screen. Only that initiates the drag-drop sequence.
-	 * 
+	 * This is the starting point for a drag operation if mLongClickStartsDrag is false. 
+	 * It looks for the down event that gets generated when a user touches the screen. Only that initiates the drag-drop sequence.
 	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent ev) {
+		
 		// If we are configured to start only on a long click, we are not going to handle any events here.
 		if (mLongClickStartsDrag) {
 			return false;
@@ -302,7 +307,7 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 			int numVisibleChildren = gridView.getChildCount();
 			for (int i = 0; i < numVisibleChildren; i++) {
 				ImageCell view = (ImageCell) gridView.getChildAt(i);
-				if (!view.mEmpty) {
+				if (!view.mEmpty && view.getTag() != null) {
 					String idImage = view.getTag().toString();
 					dbAdapter.insertTask(idScheduler, i, Long.valueOf(idImage));
 				}

@@ -216,4 +216,12 @@ public class ImageCell extends ImageView implements DragSource, DropTarget {
 	public void toast(String msg) {
 		Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 	}
+	
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		int measuredWidth = getMeasuredWidth();
+		measuredWidth = measuredWidth - measuredWidth/5;
+		setMeasuredDimension(measuredWidth, measuredWidth); // Snap to width
+	}
 }
