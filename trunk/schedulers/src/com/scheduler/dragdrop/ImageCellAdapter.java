@@ -42,9 +42,9 @@ public class ImageCellAdapter extends BaseAdapter {
 	}
 
 	/**
-	 * getView Return a view object for the grid.
+	 * Return a view object for the grid.
 	 * 
-	 * @return ImageCell
+	 * @return ImageCell view object for the grid
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		mParentView = parent;
@@ -83,14 +83,6 @@ public class ImageCellAdapter extends BaseAdapter {
 		v.mCellNumber = position;
 		v.mGrid = (GridView) mParentView;
 		
-		// v.setBackgroundResource (R.color.drop_target_enabled);
-		// v.mGrid.requestDisallowInterceptTouchEvent (true);
-		// v.setImageResource (R.drawable.hello);
-
-		// Set up to relay events to the activity.
-		// The activity decides which events trigger drag operations.
-		// Activities like the Android Launcher require a long click to get a
-		// drag operation started.
 		v.setOnTouchListener((View.OnTouchListener) mContext);
 		v.setOnClickListener((View.OnClickListener) mContext);
 		v.setOnLongClickListener((View.OnLongClickListener) mContext);
