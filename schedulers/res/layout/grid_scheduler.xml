@@ -22,7 +22,7 @@
                 android:layout_height="fill_parent"
                 android:background="@color/grid_background"
                 android:gravity="center"
-                android:horizontalSpacing="0dip"
+                android:horizontalSpacing="4dip"
                 android:numColumns="@integer/num_columns"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="0dip" />
@@ -50,7 +50,7 @@
             android:id="@+id/bottom_part"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@color/grid_background"
             android:orientation="horizontal" >

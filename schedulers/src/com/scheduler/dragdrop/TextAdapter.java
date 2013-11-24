@@ -26,7 +26,7 @@ public class TextAdapter extends BaseAdapter {
 
 		if (convertView == null) {
 			tv = new TextView(context);
-			tv.setLayoutParams(new GridView.LayoutParams(85, 25));
+			//tv.setLayoutParams(new GridView.LayoutParams(85, 25));
 		} else {
 			tv = (TextView) convertView;
 		}
