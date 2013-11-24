@@ -66,10 +66,8 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		setContentView(R.layout.grid_scheduler);
 		
 		Map<Integer,Integer> taskMap = loadSchedulerTasks();
-		
 		gridView = (GridView) findViewById(R.id.image_grid_view);
 		gridView.setAdapter(new ImageCellAdapter(this, taskMap));
-		// gridView.setOnItemClickListener (this);
 
 		mDragController = new DragController(this);
 		mDragLayer = (DragLayer) findViewById(R.id.drag_layer);
@@ -77,18 +75,14 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		mDragLayer.setGridView(gridView);
 		
 		mDragController.setDragListener(mDragLayer);
-		// mDragController.addDropTarget (mDragLayer);
 
 		mDeleteZone = (DeleteZone) findViewById(R.id.delete_zone_view);
 
-		// TODO: Give the user a little guidance.
-		//Toast.makeText(getApplicationContext(), getResources().getString(R.string.instructions), Toast.LENGTH_LONG).show();
-		
 		loadAllTasks();
 		
 		GridView gridViewHeader = (GridView) findViewById(R.id.grid_header);
 		gridViewHeader.setAdapter(new TextAdapter(this));
-		// Vertical scrolling disablled
+		// Vertical scrolling disablled on header
 		gridViewHeader.setOnTouchListener(new OnTouchListener(){
 		    @Override
 		    public boolean onTouch(View v, MotionEvent event) {
@@ -113,17 +107,12 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		dbAdapter.open();
 		Cursor cursor = dbAdapter.getTaskByIdScheduler(Long.valueOf(this.schedulerId));
 		if (cursor != null && cursor.moveToFirst()) {
-			do {
-				int columnId = cursor.getColumnIndex(SchedulerDBAdapter.TASK_PRIMARY_KEY);
-				String taskPrimaryKey = cursor.getString(columnId);
-				
+			do {				
 				int columnCellNumber = cursor.getColumnIndex(SchedulerDBAdapter.TASK_COLUMN_CELL_NUMBER);
 				String cellNumber = cursor.getString(columnCellNumber);
 				
 				int columnIdImage = cursor.getColumnIndex(SchedulerDBAdapter.TASK_COLUMN_ID_IMAGE);
 				String idImage = cursor.getString(columnIdImage);
-				
-				//Toast.makeText(getApplicationContext(), taskPrimaryKey + " " + cellNumber + " " + idImage, Toast.LENGTH_LONG).show();
 				
 				taskMap.put(Integer.valueOf(cellNumber), Integer.valueOf(idImage));
 				
@@ -165,7 +154,7 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	public void onClick(View v) {
 		if (mLongClickStartsDrag) {
 			// Tell the user that it takes a long click to start dragging.
-			toast("Press and hold to drag an image.");
+			toast(R.string.instructions);
 		}
 	}
 
@@ -275,15 +264,21 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	/**
 	 * Show a string on the screen via Toast.
 	 * 
-	 * @param msg
-	 *            String
-	 * @return void
+	 * @param msg String
 	 */
-
 	public void toast(String msg) {
 		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Show a string on the screen via Toast.
+	 * 
+	 * @param msgId resource id of messsage
+	 */
+	public void toast(int msgId) {
+		Toast.makeText(getApplicationContext(), msgId, Toast.LENGTH_SHORT).show();
+	}
+	
 	/**
 	 * Send a message to the debug log. Also display it using Toast if Debugging is true.
 	 */
