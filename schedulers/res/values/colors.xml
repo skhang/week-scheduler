@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
- 
+
     <color name="grid_background">#F5FAFA</color>
     <color name="cell_empty">#6D929B</color>
     <color name="cell_filled">#ACD1E9</color>
@@ -10,13 +10,14 @@
     <color name="red">#E8D0A9</color>
     <color name="green">#ff00ff00</color>
     <color name="blue">#ff0000ff</color>
-     <color name="black">#000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="today">#FFEC94</color>
     
     <color name="drop_target_color1">#FF993311</color>
     <color name="drop_target_color2">#FFA99033</color>
     <color name="drop_target_enabled">#FF009933</color>
     <color name="drop_target_disabled">#FFdddddd</color>
-    
     <color name="text_grey">#666666</color>
+
 </resources>
