@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/img_scheduler"
-        android:layout_width="57dp"
-        android:layout_height="match_parent"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:contentDescription="@string/scheduler_picture"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:src="@drawable/baby_green" />
@@ -26,7 +26,8 @@
     <ImageButton
         android:id="@+id/img_edit_scheduler"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="47dp"
+        android:layout_gravity="center_vertical"
         android:contentDescription="@string/edit_scheduler"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:src="@drawable/ic_5_content_edit" />
@@ -35,6 +36,7 @@
         android:id="@+id/img_delete_scheduler"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
+        android:layout_gravity="center_vertical"
         android:contentDescription="@string/delete_scheduler"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:src="@drawable/ic_5_content_discard" />
