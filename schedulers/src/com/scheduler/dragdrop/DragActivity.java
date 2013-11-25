@@ -13,10 +13,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -139,8 +139,14 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 			ImageCell newView = new ImageCell(this);
 			newView.setTag(iconId);
 			newView.setImageResource(iconId);
-			newView.setLayoutParams(new LayoutParams(70, 70));
-			newView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			
+			//newView.setLayoutParams(new LayoutParams(myGallery.getHeight(), myGallery.getHeight()));
+			//newView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			
+			newView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+			newView.setScaleType(ScaleType.FIT_XY);
+			newView.setAdjustViewBounds(true);
+			
 			newView.mEmpty = false;
 			newView.mCellNumber = -1;
 			newView.setOnClickListener(this);

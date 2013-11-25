@@ -57,11 +57,11 @@
 
             <HorizontalScrollView
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="fill_parent"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="20dp"
                 android:background="@color/grid_background" 
-                android:layout_weight="6">
+                android:layout_weight="2">
 
                 <LinearLayout
                     android:id="@+id/mygallery"
@@ -73,11 +73,11 @@
             <com.scheduler.dragdrop.DeleteZone
                 android:id="@+id/delete_zone_view"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="fill_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/grid_background"
                 android:src="@drawable/delete_zone" 
-                 android:layout_weight="1"/>
+                android:layout_weight="0.25"/>
         </LinearLayout>
 
     </LinearLayout>
