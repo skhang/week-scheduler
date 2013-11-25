@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class TextAdapter extends BaseAdapter {
 		} else {
 			tv = (TextView) convertView;
 		}
-		tv.setTextSize(10);
+		tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, 20);
 		tv.setTypeface(null, Typeface.BOLD);
 		tv.setGravity(Gravity.CENTER);
 		tv.setBackgroundResource(R.color.cell_filled_hover);
