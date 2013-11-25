@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -315,6 +314,10 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 					dbAdapter.insertTask(idScheduler, i, Long.valueOf(idImage));
 				}
 			}
+		}
+		
+		if (dbAdapter != null) {
+			dbAdapter.close();
 		}
 	}
 
