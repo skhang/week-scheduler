@@ -315,10 +315,6 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 				}
 			}
 		}
-		
-		if (dbAdapter != null) {
-			dbAdapter.close();
-		}
 	}
 
 }
