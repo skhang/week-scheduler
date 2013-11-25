@@ -140,9 +140,6 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 			newView.setTag(iconId);
 			newView.setImageResource(iconId);
 			
-			//newView.setLayoutParams(new LayoutParams(myGallery.getHeight(), myGallery.getHeight()));
-			//newView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			
 			newView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 			newView.setScaleType(ScaleType.FIT_XY);
 			newView.setAdjustViewBounds(true);
