@@ -121,7 +121,7 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 				
 		    } while (cursor.moveToNext());
 		}
-		
+		cursor.close();
 		return taskMap;
 	}
 	
