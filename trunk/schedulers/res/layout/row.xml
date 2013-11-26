@@ -6,26 +6,27 @@
 
     <ImageView
         android:id="@+id/img_scheduler"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:contentDescription="@string/scheduler_picture"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:src="@drawable/baby_green" />
+        android:src="@drawable/baby_green" 
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/text_scheduler_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="0.53"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:text="AAAAAA"
+        android:text=""
         android:textColor="@color/text_grey" 
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageButton
         android:id="@+id/img_edit_scheduler"
-        android:layout_width="wrap_content"
+        android:layout_width="47dp"
         android:layout_height="47dp"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/edit_scheduler"
@@ -34,7 +35,7 @@
 
     <ImageButton
         android:id="@+id/img_delete_scheduler"
-        android:layout_width="wrap_content"
+        android:layout_width="47dp"
         android:layout_height="47dp"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/delete_scheduler"
