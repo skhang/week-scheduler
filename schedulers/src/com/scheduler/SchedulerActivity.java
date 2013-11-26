@@ -87,6 +87,7 @@ public class SchedulerActivity extends ListActivity {
 		
 		super.onDestroy();
 		if (dbAdapter != null) {
+			cursor.close();
 			dbAdapter.close();
 		}
 	}
