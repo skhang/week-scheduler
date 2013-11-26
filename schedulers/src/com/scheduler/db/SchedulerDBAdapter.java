@@ -50,8 +50,10 @@ public class SchedulerDBAdapter {
 
 	public SchedulerDBAdapter open() throws SQLException {
 		
-		bdHelper = new SchedulerDBHelper(context);
-		database = bdHelper.getWritableDatabase();
+		if (bdHelper == null) {
+			bdHelper = new SchedulerDBHelper(context);
+			database = bdHelper.getWritableDatabase();
+		}
 		return this;
 	}
 
@@ -59,8 +61,14 @@ public class SchedulerDBAdapter {
 	 * Close database.
 	 */
 	public void close() {
+		
+		if (database != null) {
+			database.close();
+		}
+		
 		if (bdHelper != null) {
 			bdHelper.close();
+			bdHelper = null;
 		}
 	}
 
