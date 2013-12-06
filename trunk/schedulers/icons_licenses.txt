@@ -1,0 +1,98 @@
+1. basketball_icon.png
+Designers: mazenl77.deviantart.com
+License: Creative Common 3.0
+
+2. birthday_icon.png
+Designers: Kyle Van Essen
+License: Creative Commons (Attribution-Noncommercial-Share Alike 3.0 Unported)
+Size:128 x 128 px
+
+3. blackboard_icon.png
+License: LGPL
+Designers:	David Vignoni | ICON KING
+Title:	NUVOLA ICON THEME for KDE 3.x
+Site:	http://www.icon-king.com
+
+4. piano_icon.png
+License: LGPL
+Designers:	David Vignoni | ICON KING
+Title:	NUVOLA ICON THEME for KDE 3.x
+Site:	http://www.icon-king.com
+
+5. games_icon.png
+License: LGPL
+Designers:	David Vignoni | ICON KING
+Title:	NUVOLA ICON THEME for KDE 3.x
+Site:	http://www.icon-king.com
+
+6. homework_icon.png
+License: LGPL
+Designers:	David Vignoni | ICON KING
+Title:	NUVOLA ICON THEME for KDE 3.x
+Site:	http://www.icon-king.com
+
+7. cinema_icon.png
+License: LGPL
+Designers:	David Vignoni | ICON KING
+Title:	NUVOLA ICON THEME for KDE 3.x
+Site:	http://www.icon-king.com
+
+8. present_icon.png
+License: LGPL
+Designers:	David Vignoni | ICON KING
+Title:	NUVOLA ICON THEME for KDE 3.x
+Site:	http://www.icon-king.com
+
+9. paint_icon.png
+License: LGPL
+Designers:	David Vignoni | ICON KING
+Title:	NUVOLA ICON THEME for KDE 3.x
+Site:	http://www.icon-king.com
+
+10. home_icon.png
+License: LGPL
+Designers:	David Vignoni | ICON KING
+Title:	NUVOLA ICON THEME for KDE 3.x
+Site:	http://www.icon-king.com
+
+11. football_icon.png
+Licence: Free for commercial use (Link to author)
+Designers: Sportsbetting Spot
+Site:	http://iconbug.com/detail/icon/128/football-on-grass/
+
+12. guitar_icon.png
+Licence: Free for commercial use (Link to author)
+Designers: Eugen Buzuk
+Site:	http://iconbug.com/detail/icon/6711/rock/
+
+13. doctor_icon.png
+License: Creative Common 3.0
+Designers:	https://commons.wikimedia.org/wiki/User:ANGELUS
+Site:	https://commons.wikimedia.org/wiki/File:Stub_doctors.svg
+
+14. beach_icon.png
+License: Creative Commons 3.0
+Designer:
+Site: 
+
+15. tree_icon.png
+License: Free for commercial use (Link to author)
+Designers: http://icondrawer.com/
+Site: http://icondrawer.com/
+
+16. swimming_icon.png
+License: Free for commercial use (Link to author)
+Designers: Sportsbetting Spot
+Site: http://iconbug.com/detail/icon/123/blue-springboard-on-water/
+
+17. bike_icon.png
+License: Creative Commons
+Designers: All Vectors
+Site: http://www.allvectors.com/bicycle-vector/
+
+18. king_icon.png
+License: Free for commercial use
+Designers: Martin Berube
+Site: http://iconbug.com/detail/icon/2020/happy-king/
+
+

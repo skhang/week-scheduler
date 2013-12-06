@@ -132,7 +132,8 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		int[] iconIds = {R.drawable.blackboard_icon, R.drawable.homework_icon, R.drawable.games_icon, R.drawable.guitar_icon, R.drawable.ballet_icon, R.drawable.basketball_icon, R.drawable.beach_icon,
 				R.drawable.bike_icon, R.drawable.birthday_icon, R.drawable.museum_icon, R.drawable.piano_icon,
 				R.drawable.bouncycastle_icon, R.drawable.cinema_icon, R.drawable.doctor_icon,
-				R.drawable.english_icon, R.drawable.football_icon, R.drawable.swimming_icon};
+				R.drawable.english_icon, R.drawable.football_icon, R.drawable.swimming_icon, R.drawable.paint_icon, 
+				R.drawable.present_icon, R.drawable.tree_icon};
 		
 		for (int iconId : iconIds) {
 			ImageCell newView = new ImageCell(this);
