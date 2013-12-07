@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -79,6 +80,14 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		loadAllTasks();
 		
 		loadHeader();
+		
+		ImageButton buttonHome = (ImageButton) findViewById(R.id.button_home);
+		buttonHome.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				onBackPressed();
+			}
+		});
 	}
 	
 	private void loadHeader() {
