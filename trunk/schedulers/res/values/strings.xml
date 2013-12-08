@@ -3,7 +3,7 @@
 
     <string name="app_name">Schedulers</string>
     <string name="action_settings">Settings</string>
-    <string name="my_schedulers">My schedulers</string>
+    <string name="my_plans">My plans:</string>
     <string name="name">Name</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
