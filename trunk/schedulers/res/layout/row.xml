@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/img_scheduler"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:contentDescription="@string/scheduler_picture"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:src="@drawable/king_icon" 
