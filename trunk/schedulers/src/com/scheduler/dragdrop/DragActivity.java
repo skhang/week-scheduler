@@ -1,5 +1,6 @@
 package com.scheduler.dragdrop;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.scheduler.R;
@@ -114,6 +116,15 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		
 		Bundle extras = getIntent().getExtras();
 		this.schedulerId = extras.getString(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY);
+		String schedulerName = extras.getString(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
+		
+		TextView textViewName = (TextView) findViewById(R.id.textView_name);
+		textViewName.setText(schedulerName);
+		
+		Date date = new Date();
+		java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+		TextView textViewDate = (TextView) findViewById(R.id.textView_date);
+		textViewDate.setText(dateFormat.format(date));
 		
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
 		dbAdapter.open();

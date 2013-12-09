@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -49,15 +50,22 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			
 			TextView textSchedulerName = (TextView) view;
 			textSchedulerName.setText(name);
-			textSchedulerName.setTag(schedulerId);
+			textSchedulerName.setTag(schedulerId + "#" + name );
 			//textSchedulerName.setBackgroundResource(R.drawable.rounded_corners);
 
 			textSchedulerName.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					Intent i = new Intent(context, DragActivity.class);
-					// Primary key of current scheduler as extra field
-					i.putExtra(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, arg0.getTag().toString());
+					
+					String args[] = arg0.getTag().toString().split("#");
+					
+					// Primary key and name of current scheduler as extra field
+					Bundle extras = new Bundle();
+					extras.putString(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, args[0]);
+					extras.putString(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME, args[1]);
+					i.putExtras(extras);
+					
 					context.startActivity(i);
 				}
 			});
@@ -70,14 +78,24 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			int columnId = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY);
 			String schedulerId = cursor.getString(columnId);
 			
+			int columnName = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
+			String name = cursor.getString(columnName);
+			
 			ImageView imageScheduler = (ImageView) view;
-			imageScheduler.setTag(schedulerId);
+			imageScheduler.setTag(schedulerId + "#" + name);
 			imageScheduler.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					Intent i = new Intent(context, DragActivity.class);
-					// Primary key of current scheduler as extra field
-					i.putExtra(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, arg0.getTag().toString());
+					
+					String args[] = arg0.getTag().toString().split("#");
+					
+					// Primary key and name of current scheduler as extra field
+					Bundle extras = new Bundle();
+					extras.putString(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, args[0]);
+					extras.putString(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME, args[1]);
+					i.putExtras(extras);
+					
 					context.startActivity(i);
 				}
 			});

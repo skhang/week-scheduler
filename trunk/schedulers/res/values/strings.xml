@@ -15,6 +15,8 @@
     <string name="edit_scheduler">Edit scheduler</string>
     <string name="delete_scheduler">Delete scheduler</string>
     <string name="back">Back</string>
+    
+    <string name="top_date">date</string>
 
     <!-- Drag Drop -->
     <integer name="num_images">21</integer>
