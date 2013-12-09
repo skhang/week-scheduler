@@ -1,5 +1,6 @@
 package com.scheduler.dragdrop;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -121,10 +122,8 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		TextView textViewName = (TextView) findViewById(R.id.textView_name);
 		textViewName.setText(schedulerName);
 		
-		Date date = new Date();
-		java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 		TextView textViewDate = (TextView) findViewById(R.id.textView_date);
-		textViewDate.setText(dateFormat.format(date));
+		textViewDate.setText(DateFormat.getDateInstance().format(new Date()));
 		
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
 		dbAdapter.open();
