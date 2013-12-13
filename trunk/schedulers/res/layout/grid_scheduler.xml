@@ -24,7 +24,7 @@
                android:layout_width="wrap_content"
                android:layout_height="fill_parent"
                android:text="@string/name"
-               android:textColor="#F23937" 
+               android:textColor="@color/text_green" 
                android:layout_alignParentLeft="true"
                android:gravity="left"/>
 
@@ -37,7 +37,7 @@
                android:layout_toRightOf="@+id/textView_name"
                android:gravity="right"
                android:text="@string/top_date"
-               android:textColor="@color/text_grey" />
+               android:textColor="@color/text_orange" />
 
        </RelativeLayout>
            
