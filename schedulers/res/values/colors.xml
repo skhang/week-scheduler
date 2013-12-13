@@ -19,6 +19,9 @@
     <color name="drop_target_enabled">#FF009933</color>
     <color name="drop_target_disabled">#FFdddddd</color>
     <color name="text_grey">#666666</color>
+    <color name="text_blue">#3A60F4</color>
+    <color name="text_green">#36CB31</color>
+    <color name="text_orange">#F6C033</color>
     
     <color name="list_background">#e4edf1</color>
   
