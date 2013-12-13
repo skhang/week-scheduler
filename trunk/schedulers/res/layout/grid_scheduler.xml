@@ -8,15 +8,16 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/simple_background">
 		
         <RelativeLayout
             android:id="@+id/linearLayout_header"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:background="@color/list_background"
-            android:paddingLeft="10dp"
+            android:background="#00000000"
+            android:paddingLeft="20dp"
             android:paddingRight="10dp" >
 
            <TextView
@@ -51,7 +52,7 @@
                 android:id="@+id/grid_header"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:background="@color/list_background"
+                android:background="#00000000"
                 android:gravity="center"
                 android:horizontalSpacing="4dip"
                 android:numColumns="@integer/num_columns"
@@ -69,7 +70,7 @@
                 android:id="@+id/image_grid_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/list_background"
+                android:background="#00000000"
                 android:gravity="center"
                 android:horizontalSpacing="2dip"
                 android:numColumns="@integer/num_columns"
