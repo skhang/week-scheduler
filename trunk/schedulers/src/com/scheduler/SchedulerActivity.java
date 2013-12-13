@@ -44,10 +44,13 @@ public class SchedulerActivity extends ListActivity {
 					@Override
 					public void onClick(View v) {
 						EditText editText = (EditText) dialog.findViewById(R.id.text_view_scheduler);
-						dbAdapter.insertScheduler(editText.getText().toString());
-						cursor.requery();
-						Toast.makeText(getApplicationContext(), R.string.scheduler_added, Toast.LENGTH_SHORT).show();
-						dialog.dismiss();
+						String newName = editText.getText().toString();
+						if (!"".equals(newName)) {
+							dbAdapter.insertScheduler(editText.getText().toString());
+							cursor.requery();
+							Toast.makeText(getApplicationContext(), R.string.scheduler_added, Toast.LENGTH_SHORT).show();
+							dialog.dismiss();
+						}
 					}
 				});
 

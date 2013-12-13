@@ -136,10 +136,12 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 						@Override
 						public void onClick(View v) {
 							EditText editText = (EditText) dialog.findViewById(R.id.text_view_scheduler);
-							dbAdapter.updateScheduler(Integer.valueOf(schedulerId), editText.getText().toString());
-							mainCursor.requery();
-							//Toast.makeText(context, R.string.scheduler_modified, Toast.LENGTH_SHORT).show();
-							dialog.dismiss();
+							String newName = editText.getText().toString();
+							if (!"".equals(newName)) {
+								dbAdapter.updateScheduler(Integer.valueOf(schedulerId), editText.getText().toString());
+								mainCursor.requery();
+								dialog.dismiss();
+							}
 						}
 					});
 
