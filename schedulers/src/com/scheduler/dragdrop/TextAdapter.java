@@ -37,6 +37,7 @@ public class TextAdapter extends BaseAdapter {
 		tv.setGravity(Gravity.CENTER);
 		tv.setBackgroundResource(R.color.cell_filled_hover);
 		tv.setText(DAYS_OF_WEEK[position]);
+		tv.setTextColor(context.getResources().getColor(R.color.black));
 		
 		if (position == getToday()) {
 			tv.setBackgroundResource(R.color.today);
