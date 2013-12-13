@@ -16,10 +16,11 @@ import com.scheduler.R;
 public class TextAdapter extends BaseAdapter {
 
 	private Context context;
-	private static final String[] DAYS_OF_WEEK = new String[] { "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat.", "Sun." };
+	private static String[] DAYS_OF_WEEK;
 
 	public TextAdapter(Context context) {
 		this.context = context;
+		DAYS_OF_WEEK = this.context.getResources().getStringArray(R.array.days_of_week);
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
