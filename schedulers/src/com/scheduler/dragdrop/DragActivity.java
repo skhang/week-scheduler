@@ -130,7 +130,7 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		TextView textViewName = (TextView) findViewById(R.id.textView_name);
 		textViewName.setTypeface(tf);
 		textViewName.setText(schedulerName);
-		textViewName.setTextSize((float)(getFontSize(this)*1.5));
+		textViewName.setTextSize((float)(getFontSize(this)*1.7));
 		
 		TextView textViewDate = (TextView) findViewById(R.id.textView_date);
 		textViewDate.setTypeface(tf);
