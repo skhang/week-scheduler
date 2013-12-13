@@ -8,7 +8,9 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +51,9 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	private static final int SHOW_TRASHCAN_MENU_ID = Menu.FIRST + 1;
 	private static final int CHANGE_TOUCH_MODE_MENU_ID = Menu.FIRST + 2;
 
+	// Font path
+	private static final String fontPath = "fonts/SQUAREKI.TTF";
+    
 	public static final boolean Debugging = false; // Use this to see extra toast messages.
 	
 	private DragController mDragController; // Object that handles a drag-drop sequence. It intersacts with DragSource and DropTarget objects.
@@ -119,11 +124,18 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		this.schedulerId = extras.getString(SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY);
 		String schedulerName = extras.getString(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
 		
+		// Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        
 		TextView textViewName = (TextView) findViewById(R.id.textView_name);
+		textViewName.setTypeface(tf);
 		textViewName.setText(schedulerName);
+		textViewName.setTextSize((float)(getFontSize(this)*1.5));
 		
 		TextView textViewDate = (TextView) findViewById(R.id.textView_date);
+		textViewDate.setTypeface(tf);
 		textViewDate.setText(DateFormat.getDateInstance().format(new Date()));
+		textViewDate.setTextSize(getFontSize(this));
 		
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
 		dbAdapter.open();
@@ -142,6 +154,17 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		}
 		cursor.close();
 		return taskMap;
+	}
+	
+	public int getFontSize (Activity activity) { 
+
+	    DisplayMetrics dMetrics = new DisplayMetrics();
+	    activity.getWindowManager().getDefaultDisplay().getMetrics(dMetrics);
+
+	    // lets try to get them back a font size realtive to the pixel width of the screen
+	    final float WIDE = activity.getResources().getDisplayMetrics().widthPixels;
+	    int valueWide = (int)(WIDE / 32.0f / (dMetrics.scaledDensity));
+	    return valueWide;
 	}
 	
 	private void loadAllTasks() {
