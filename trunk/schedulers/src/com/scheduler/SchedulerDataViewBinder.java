@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,8 +83,16 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			int columnName = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
 			String name = cursor.getString(columnName);
 			
+			int columnImage = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_COLUMN_IMAGE);
+			byte[] imageBytes = cursor.getBlob(columnImage);
+			
 			ImageView imageScheduler = (ImageView) view;
 			imageScheduler.setTag(schedulerId + "#" + name);
+			if (imageBytes != null && imageBytes.length > 0) {
+				Bitmap b = BitmapFactory.decodeByteArray(imageBytes , 0, imageBytes .length);
+				imageScheduler.setImageBitmap(b);
+			}
+			
 			imageScheduler.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
