@@ -14,26 +14,60 @@
         android:orientation="vertical">
     </LinearLayout>
     
-    <TextView
-        android:id="@+id/text_vew_line1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textColor="@color/white" />
-
-    <EditText
-        android:id="@+id/text_view_scheduler"
-        android:layout_width="212dp"
-        android:layout_height="wrap_content"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
+   <RelativeLayout
+            android:id="@+id/linearLayout_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:paddingTop="10dp" >
+            
+	    <TextView
+	        android:id="@+id/text_vew_name"
+	        android:layout_width="50dp"
+	        android:layout_height="wrap_content"
+	        android:text="@string/name"
+	        android:textColor="@color/white" 
+	        android:layout_centerVertical="true" />
+	
+	    <EditText
+	        android:id="@+id/text_view_scheduler"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/text_vew_name" >
+	
+	        <requestFocus />
+	    </EditText>
+    </RelativeLayout>
+    
+   <RelativeLayout
+            android:id="@+id/linearLayout_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+            
+	     <ImageView
+			android:id="@+id/imageView_picture"
+			android:layout_width="50dp" 		 
+			android:layout_height="50dp"
+			android:contentDescription="@string/select_picture"
+			android:src="@drawable/king_icon"/>
+	
+	     <Button
+            android:id="@+id/button_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:text="@string/select_picture" 
+            android:layout_toRightOf="@+id/imageView_picture"/>
+	     
+    </RelativeLayout>
+    
+    
     <LinearLayout
         android:layout_width="214dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal" >
+        android:layout_gravity="center_horizontal" 
+        android:paddingTop="30dp">
 
         <Button
             android:id="@+id/button_ok"
