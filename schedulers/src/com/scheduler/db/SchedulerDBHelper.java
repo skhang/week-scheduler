@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SchedulerDBHelper extends SQLiteOpenHelper {
 	
 	// DB name and version
-	private static final String DB_NAME = "schedulers.db";
-	private static final int DB_VERSION = 2;
+	private static final String DB_NAME = "smart_week.db";
+	private static final int DB_VERSION = 3;
 
 	// SQL Create table
 	private static final String CREATE_SCHEDULERS_TABLE = "CREATE TABLE " + SchedulerDBAdapter.SCHEDULER_TABLE_NAME + 
 			" (_id integer primary key autoincrement, " +
-			" name text not null);";
+			" name text not null, image blob);";
 
 	private static final String CREATE_TASK_TABLE = "CREATE TABLE " + SchedulerDBAdapter.TASK_TABLE_NAME + 
 			" (_id integer primary key autoincrement, " +

@@ -14,6 +14,7 @@ public class SchedulerDBAdapter {
 	public static final String SCHEDULER_TABLE_NAME = "schedulers";
 	public static final String SCHEDULER_PRIMARY_KEY = "_id";
 	public static final String SCHEDULER_COLUMN_NAME = "name";
+	public static final String SCHEDULER_COLUMN_IMAGE = "image";
 	
 	public static final String TASK_TABLE_NAME = "tasks";
 	public static final String TASK_PRIMARY_KEY = "_id";
@@ -83,6 +84,18 @@ public class SchedulerDBAdapter {
 		ContentValues initialValues = createSchedulerContentValues(name);
 		return database.insert(SCHEDULER_TABLE_NAME, null, initialValues);
 	}
+	
+	/**
+	 * Insert a new scheduler.
+	 * 
+	 * @param name Name of scheduer
+	 * 
+	 * @return id of new scheduler
+	 */
+	public long insertScheduler(String name, byte[] imageBytes) {
+		ContentValues initialValues = createSchedulerContentValues(name, imageBytes);
+		return database.insert(SCHEDULER_TABLE_NAME, null, initialValues);
+	}
 
 	/**
 	 * Update a new scheduler.
@@ -125,7 +138,7 @@ public class SchedulerDBAdapter {
 	 * @return Cursor with all schedulers of database
 	 */
 	public Cursor loadSchedulers(String sort) {
-		return database.query(SCHEDULER_TABLE_NAME, new String[] { SCHEDULER_PRIMARY_KEY, SCHEDULER_COLUMN_NAME },
+		return database.query(SCHEDULER_TABLE_NAME, new String[] { SCHEDULER_PRIMARY_KEY, SCHEDULER_COLUMN_NAME, SCHEDULER_COLUMN_IMAGE },
 				null, null, null, null, sort);
 	}
 
@@ -151,7 +164,7 @@ public class SchedulerDBAdapter {
 	 */
 	public Cursor getScheduler(long id) throws SQLException {
 		Cursor mCursor = database.query(true, SCHEDULER_TABLE_NAME, new String[] {
-				SCHEDULER_PRIMARY_KEY, SCHEDULER_COLUMN_NAME},
+				SCHEDULER_PRIMARY_KEY, SCHEDULER_COLUMN_NAME, SCHEDULER_COLUMN_IMAGE},
 				SCHEDULER_PRIMARY_KEY + "=" + id, null, null, null, null, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();
@@ -219,13 +232,28 @@ public class SchedulerDBAdapter {
 	 * Creates a ContentValues object.
 	 * 
 	 * @param name Value for name fiels
+	 * @param imageBytes Bytes of an image
+	 * 
+	 * @return ContentValues object
+	 */
+	private ContentValues createSchedulerContentValues(String name, byte[] imageBytes) {
+		ContentValues values = new ContentValues();
+		values.put(SCHEDULER_COLUMN_NAME, name);
+		if (imageBytes != null) {
+			values.put(SCHEDULER_COLUMN_IMAGE, imageBytes);
+		}
+		return values;
+	}
+	
+	/**
+	 * Creates a ContentValues object.
+	 * 
+	 * @param name Value for name fiels
 	 * 
 	 * @return ContentValues object
 	 */
 	private ContentValues createSchedulerContentValues(String name) {
-		ContentValues values = new ContentValues();
-		values.put(SCHEDULER_COLUMN_NAME, name);
-		return values;
+		return createSchedulerContentValues(name, null);
 	}
 	
 	/**

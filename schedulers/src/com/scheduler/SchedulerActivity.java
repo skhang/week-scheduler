@@ -1,5 +1,6 @@
 package com.scheduler;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -74,8 +77,14 @@ public class SchedulerActivity extends ListActivity {
 					public void onClick(View v) {
 						EditText editText = (EditText) schedulerDialog.findViewById(R.id.text_view_scheduler);
 						String newName = editText.getText().toString();
+						
+						// Get imageview bytes
+						BitmapDrawable bitmapDrawable = (BitmapDrawable) mImageView.getDrawable();
+						Bitmap bitmap = bitmapDrawable.getBitmap();
+						byte[] imageBytes = getBitmapAsByteArray(bitmap);
+						
 						if (!"".equals(newName)) {
-							dbAdapter.insertScheduler(editText.getText().toString());
+							dbAdapter.insertScheduler(editText.getText().toString(), imageBytes);
 							cursor.requery();
 							Toast.makeText(getApplicationContext(), R.string.scheduler_added, Toast.LENGTH_SHORT).show();
 							schedulerDialog.dismiss();
@@ -104,6 +113,12 @@ public class SchedulerActivity extends ListActivity {
 		});
 	}
 
+	public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    bitmap.compress(CompressFormat.PNG, 0, outputStream);       
+	    return outputStream.toByteArray();
+	}
+	
 	private void buildPictureDialog() {
 
 		final String[] items = new String[] { "Take from camera", "Select from gallery" };
@@ -191,8 +206,8 @@ public class SchedulerActivity extends ListActivity {
 		} else {
 			intent.setData(mImageCaptureUri);
 
-			intent.putExtra("outputX", 200);
-			intent.putExtra("outputY", 200);
+			intent.putExtra("outputX", 60);
+			intent.putExtra("outputY", 60);
 			intent.putExtra("aspectX", 1);
 			intent.putExtra("aspectY", 1);
 			intent.putExtra("scale", true);
