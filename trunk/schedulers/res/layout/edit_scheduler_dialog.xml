@@ -48,7 +48,7 @@
 			android:id="@+id/imageView_picture"
 			android:layout_width="50dp" 		 
 			android:layout_height="50dp"
-			android:contentDescription="@string/select_picture"
+			android:contentDescription="@string/select_image"
 			android:src="@drawable/king_icon"/>
 	
 	     <Button
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dip"
             android:paddingRight="20dip"
-            android:text="@string/select_picture" 
+            android:text="@string/select_image_button" 
             android:layout_toRightOf="@+id/imageView_picture"/>
 	     
     </RelativeLayout>

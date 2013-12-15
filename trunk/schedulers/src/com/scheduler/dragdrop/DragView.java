@@ -26,11 +26,9 @@ public class DragView extends View {
 	private static final int DRAG_SCALE = 0; // In Launcher, value is 40
 
 	private Bitmap mBitmap;
-	private Paint mPaint;
 	private int mRegistrationX;
 	private int mRegistrationY;
 
-	private float mScale;
 	private float mAnimationScale = 0.9f;
 
 	private WindowManager.LayoutParams mLayoutParams;
@@ -55,7 +53,7 @@ public class DragView extends View {
 
 		Matrix scale = new Matrix();
 		float scaleFactor = width;
-		scaleFactor = mScale = (scaleFactor + DRAG_SCALE) / scaleFactor;
+		scaleFactor = (scaleFactor + DRAG_SCALE) / scaleFactor;
 		scale.setScale(scaleFactor, scaleFactor);
 		mBitmap = Bitmap.createBitmap(bitmap, left, top, width, height, scale, true);
 
@@ -100,7 +98,6 @@ public class DragView extends View {
 	}
 
 	public void setPaint(Paint paint) {
-		mPaint = paint;
 		invalidate();
 	}
 
