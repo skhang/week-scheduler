@@ -6,12 +6,12 @@
 
     <ImageView
         android:id="@+id/img_scheduler"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
         android:contentDescription="@string/scheduler_picture"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:src="@drawable/king_icon" 
-        android:scaleType="centerCrop"/>
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/text_scheduler_name"
