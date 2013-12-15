@@ -3,6 +3,7 @@ package com.scheduler.dragdrop;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
@@ -134,7 +135,10 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		
 		TextView textViewDate = (TextView) findViewById(R.id.textView_date);
 		textViewDate.setTypeface(tf);
-		textViewDate.setText(DateFormat.getDateInstance().format(new Date()));
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, getResources().getConfiguration().locale);
+		String currentDate = dateFormat.format(new Date());
+		currentDate = currentDate.replaceAll("/", " ");
+		textViewDate.setText(currentDate);
 		textViewDate.setTextSize(getFontSize(this));
 		
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
@@ -171,10 +175,12 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		
 		myGallery = (LinearLayout) findViewById(R.id.mygallery);
 
-		int[] iconIds = {R.drawable.blackboard_icon, R.drawable.homework_icon, R.drawable.games_icon, R.drawable.guitar_icon, R.drawable.ballet_icon, R.drawable.basketball_icon, R.drawable.beach_icon,
-				R.drawable.bike_icon, R.drawable.birthday_icon, R.drawable.museum_icon, R.drawable.piano_icon,
+		int[] iconIds = {R.drawable.blackboard_icon, R.drawable.homework_icon, R.drawable.games_icon, R.drawable.paint_icon,
+				R.drawable.music_icon, R.drawable.guitar_icon, R.drawable.piano_icon, R.drawable.beach_icon,
+				R.drawable.birthday_icon, R.drawable.museum_icon, R.drawable.laptop_icon,
 				R.drawable.bouncycastle_icon, R.drawable.cinema_icon, R.drawable.doctor_icon,
-				R.drawable.english_icon, R.drawable.football_icon, R.drawable.swimming_icon, R.drawable.paint_icon, 
+				R.drawable.english_icon, R.drawable.football_icon, R.drawable.ballet_icon, R.drawable.basketball_icon, R.drawable.swimming_icon, 
+				R.drawable.bike_icon, R.drawable.bowling_icon, R.drawable.karate_icon, R.drawable.rugby_icon, R.drawable.tennis_icon, 
 				R.drawable.present_icon, R.drawable.tree_icon};
 		
 		for (int iconId : iconIds) {
