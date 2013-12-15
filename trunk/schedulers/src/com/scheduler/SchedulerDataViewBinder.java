@@ -6,12 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,12 +42,14 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 	private SchedulerDBAdapter dbAdapter;
 	private Cursor mainCursor;
 	private AlertDialog cameraDialog;
+	private Dialog schedulerDialog;
 	
-	public SchedulerDataViewBinder(Context context, Cursor c, SchedulerDBAdapter dbAdapter, AlertDialog cameraDialog) {
+	public SchedulerDataViewBinder(Context context, Cursor c, SchedulerDBAdapter dbAdapter, AlertDialog cameraDialog, Dialog schedulerDialog) {
 		this.context = context;
 		this.mainCursor = c;
 		this.dbAdapter = dbAdapter;
 		this.cameraDialog = cameraDialog;
+		this.schedulerDialog = schedulerDialog;
 	}
 
 	@Override
@@ -93,8 +104,10 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			ImageView imageScheduler = (ImageView) view;
 			imageScheduler.setTag(schedulerId + "#" + name);
 			if (imageBytes != null && imageBytes.length > 0) {
-				Bitmap b = BitmapFactory.decodeByteArray(imageBytes , 0, imageBytes .length);
-				imageScheduler.setImageBitmap(b);
+				Bitmap b = BitmapFactory.decodeByteArray(imageBytes , 0, imageBytes.length);
+				imageScheduler.setImageBitmap(roundCornerImage(b, 50));
+			} else {
+				imageScheduler.setImageBitmap(roundCornerImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.king_icon), 50));
 			}
 			
 			imageScheduler.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +137,9 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			int columnName = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
 			String name = cursor.getString(columnName);
 			
+			int columnImage = cursor.getColumnIndex(SchedulerDBAdapter.SCHEDULER_COLUMN_IMAGE);
+			final byte[] imageBytes  = cursor.getBlob(columnImage);
+			
 			ImageButton editScheduler = (ImageButton) view;
 			editScheduler.setTag(schedulerId + "#" + name);
 			
@@ -131,66 +147,61 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 				@Override
 				public void onClick(View arg0) {
 					
-					final Dialog dialog = new Dialog(arg0.getContext());
-					dialog.setContentView(R.layout.edit_scheduler_dialog);
-					dialog.setTitle(R.string.edit_plan);
-					dialog.show();
+					//final Dialog dialog = new Dialog(arg0.getContext());
+					//dialog.setContentView(R.layout.edit_scheduler_dialog);
+					schedulerDialog.setTitle(R.string.edit_plan);
+					schedulerDialog.show();
 
 					ImageButton editScheduler = (ImageButton) arg0;
 					
 					String[] data = editScheduler.getTag().toString().split("#");
 					final String schedulerId = data[0];
 					final String schedulerName = data[1];
-					EditText editText = (EditText) dialog.findViewById(R.id.text_view_scheduler);
+					EditText editText = (EditText) schedulerDialog.findViewById(R.id.text_view_scheduler);
 					editText.setText(schedulerName);
 					editText.setTag(schedulerId);
 					
-					Button buttonOK = (Button) dialog.findViewById(R.id.button_ok);
+					// Get imageview bytes
+					ImageView mImageView = (ImageView)schedulerDialog.findViewById(R.id.imageView_picture);
+					Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes , 0, imageBytes .length);
+					mImageView.setImageBitmap(bitmap);
+
+					Button buttonOK = (Button) schedulerDialog.findViewById(R.id.button_ok);
 					buttonOK.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							EditText editText = (EditText) dialog.findViewById(R.id.text_view_scheduler);
+							EditText editText = (EditText) schedulerDialog.findViewById(R.id.text_view_scheduler);
 							String newName = editText.getText().toString();
 							if (!"".equals(newName)) {
-								dbAdapter.updateScheduler(Integer.valueOf(schedulerId), editText.getText().toString());
+								
+								// Get imageview bytes
+								ImageView mImageView = (ImageView)schedulerDialog.findViewById(R.id.imageView_picture);
+								BitmapDrawable bitmapDrawable = (BitmapDrawable) mImageView.getDrawable();
+								Bitmap bitmap = bitmapDrawable.getBitmap();
+								byte[] newImageBytes = SchedulerActivity.getBitmapAsByteArray(bitmap);
+								
+								dbAdapter.updateScheduler(Integer.valueOf(schedulerId), editText.getText().toString(), newImageBytes);
 								mainCursor.requery();
-								dialog.dismiss();
+								schedulerDialog.dismiss();
 							}
 						}
 					});
 
-					Button buttonCancel = (Button) dialog.findViewById(R.id.button_cancel);
+					Button buttonCancel = (Button) schedulerDialog.findViewById(R.id.button_cancel);
 					buttonCancel.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							// Close dialog
-							dialog.dismiss();
+							schedulerDialog.dismiss();
 						}
 					});
 					
-					Button buttonPicture = (Button) dialog.findViewById(R.id.button_picture);
+					Button buttonPicture = (Button) schedulerDialog.findViewById(R.id.button_picture);
 					buttonPicture.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							// Open camera/galley dialog
 							cameraDialog.show();
-							
-							// Resize AlertDialog
-							DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-							WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-							windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-							int mwidth = displayMetrics.heightPixels;
-							int mheight = displayMetrics.widthPixels;
-							WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-							lp.copyFrom(cameraDialog.getWindow().getAttributes());
-							lp.width = mwidth/2;
-							lp.height = mheight;
-
-							//set the dim level of the background
-							lp.dimAmount=0.1f;
-							cameraDialog.getWindow().setAttributes(lp);
-							//add a blur/dim flags
-							cameraDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND | WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 						}
 					});
 					
@@ -222,4 +233,44 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 		
 		return false;
 	}
+	
+	/**
+	 * Add round corners to bitmap image.
+	 * 
+	 * @param src Source of image
+	 * @param round Round pixels
+	 * 
+	 * @return Bitmap with round corners
+	 */
+	public Bitmap roundCornerImage(Bitmap src, float round) {
+		
+	     // Source image size
+	     int width = src.getWidth();
+	     int height = src.getHeight();
+	     // create result bitmap output
+	     Bitmap result = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+	     // set canvas for painting
+	     Canvas canvas = new Canvas(result);
+	     canvas.drawARGB(0, 0, 0, 0);
+	  
+	     // configure paint
+	     final Paint paint = new Paint();
+	     paint.setAntiAlias(true);
+	     paint.setColor(Color.BLACK);
+	  
+	     // configure rectangle for embedding
+	     final Rect rect = new Rect(0, 0, width, height);
+	     final RectF rectF = new RectF(rect);
+	  
+	     // draw Round rectangle to canvas
+	     canvas.drawRoundRect(rectF, round, round, paint);
+	  
+	     // create Xfer mode
+	     paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	     // draw source image to canvas
+	     canvas.drawBitmap(src, rect, rect, paint);
+	  
+	     // return final image
+	     return result;
+	 }
 }

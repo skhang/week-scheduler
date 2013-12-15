@@ -24,6 +24,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,9 +57,7 @@ public class SchedulerActivity extends ListActivity {
 
 		prepareDBConnection();
 		
-		buildPictureDialog();
-		
-		resolveAddButton();
+		buildButtonAndDialogs();
 		
 		loadPlansFromDB();
 	}
@@ -70,19 +69,27 @@ public class SchedulerActivity extends ListActivity {
 		startManagingCursor(cursor);
 	}
 	
-	private void resolveAddButton() {
+	private void buildButtonAndDialogs() {
+		
+		schedulerDialog = new Dialog(this);
+		schedulerDialog.setContentView(R.layout.edit_scheduler_dialog);
+		mImageView = (ImageView)schedulerDialog.findViewById(R.id.imageView_picture);
+		
+		buildPictureDialog();
 		
 		ImageButton addScheduler = (ImageButton) findViewById(R.id.add_scheduler);
 		addScheduler.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				schedulerDialog = new Dialog(arg0.getContext());
-				schedulerDialog.setContentView(R.layout.edit_scheduler_dialog);
+				
 				schedulerDialog.setTitle(R.string.new_plan);
+				// Init dialog fields
+				EditText editText = (EditText) schedulerDialog.findViewById(R.id.text_view_scheduler);
+				editText.setText("");
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.king_icon));
+				
 				schedulerDialog.show();
 
-				mImageView = (ImageView)schedulerDialog.findViewById(R.id.imageView_picture);
-				
 				Button buttonOK = (Button) schedulerDialog.findViewById(R.id.button_ok);
 				buttonOK.setOnClickListener(new OnClickListener() {
 					@Override
@@ -118,30 +125,14 @@ public class SchedulerActivity extends ListActivity {
 					@Override
 					public void onClick(View v) {
 						// Open camera/galley dialog
-						cameraDialog.show();
-						
-						// Resize AlertDialog
-						DisplayMetrics displayMetrics = new DisplayMetrics();
-						getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-						int mwidth = displayMetrics.heightPixels;
-						int mheight = displayMetrics.widthPixels;
-						WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-						lp.copyFrom(cameraDialog.getWindow().getAttributes());
-						lp.width = (int)(mwidth/1.5);
-						lp.height = mheight;
-
-						//set the dim level of the background
-						lp.dimAmount=0.1f;
-						cameraDialog.getWindow().setAttributes(lp);
-						//add a blur/dim flags
-						cameraDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND | WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+						cameraDialog.show();					
 					}
 				});
 			}
 		});
 	}
 	
-	private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+	public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
 	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 	    bitmap.compress(CompressFormat.PNG, 0, outputStream);       
 	    return outputStream.toByteArray();
@@ -201,11 +192,13 @@ public class SchedulerActivity extends ListActivity {
 			Bundle extras = data.getExtras();
 			if (extras != null) {
 				Bitmap photo = extras.getParcelable("data");
-				mImageView.setImageBitmap(photo);
+				if (photo != null) {
+					mImageView.setImageBitmap(photo);
+				}
 			}
 
 			File f = new File(mImageCaptureUri.getPath());
-			if (f.exists()) {
+			if (f != null && f.exists()) {
 				f.delete();
 			}
 
@@ -291,7 +284,7 @@ public class SchedulerActivity extends ListActivity {
 
 		String[] from = new String[] { SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, SchedulerDBAdapter.SCHEDULER_COLUMN_NAME, SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY };
 		int[] to = new int[] { R.id.img_scheduler, R.id.text_scheduler_name, R.id.img_edit_scheduler, R.id.img_delete_scheduler};
-		SchedulerCursorAdapter notas = new SchedulerCursorAdapter(this, R.layout.row, cursor, from, to, dbAdapter, cameraDialog);
+		SchedulerCursorAdapter notas = new SchedulerCursorAdapter(this, R.layout.row, cursor, from, to, dbAdapter, cameraDialog, schedulerDialog);
 		setListAdapter(notas);
 	}
 
@@ -299,8 +292,9 @@ public class SchedulerActivity extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		//getMenuInflater().inflate(R.menu.main, menu);
+		//return true;
+		return false;
 	}
 	
 	@Override
