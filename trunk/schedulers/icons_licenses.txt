@@ -37,10 +37,9 @@ Title:	NUVOLA ICON THEME for KDE 3.x
 Site:	http://www.icon-king.com
 
 8. present_icon.png
-License: LGPL
-Designers:	David Vignoni | ICON KING
-Title:	NUVOLA ICON THEME for KDE 3.x
-Site:	http://www.icon-king.com
+License: Unlimited Commercial Use 
+Designers:	openclipart
+Site:	http://openclipart.org/
 
 9. paint_icon.png
 License: LGPL
@@ -55,9 +54,9 @@ Title:	NUVOLA ICON THEME for KDE 3.x
 Site:	http://www.icon-king.com
 
 11. football_icon.png
-Licence: Free for commercial use (Link to author)
-Designers: Sportsbetting Spot
-Site:	http://iconbug.com/detail/icon/128/football-on-grass/
+License: Unlimited Commercial Use 
+Designers: openclipart
+Site: http://openclipart.org/
 
 12. guitar_icon.png
 Licence: Free for commercial use (Link to author)
