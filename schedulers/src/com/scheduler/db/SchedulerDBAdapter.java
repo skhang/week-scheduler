@@ -89,6 +89,7 @@ public class SchedulerDBAdapter {
 	 * Insert a new scheduler.
 	 * 
 	 * @param name Name of scheduer
+	 * @param imageBytes Image for current scheduler
 	 * 
 	 * @return id of new scheduler
 	 */
@@ -105,7 +106,19 @@ public class SchedulerDBAdapter {
 	 * @return id of new scheduler
 	 */
 	public boolean updateScheduler(long id, String name) {
-		ContentValues updateValues = createSchedulerContentValues(name);
+		return updateScheduler(id, name, null);
+	}
+	
+	/**
+	 * Update a new scheduler.
+	 * 
+	 * @param name Name of scheduer
+	 * @param imageBytes Image for current scheduler
+	 * 
+	 * @return id of new scheduler
+	 */
+	public boolean updateScheduler(long id, String name, byte[] imageBytes) {
+		ContentValues updateValues = createSchedulerContentValues(name, imageBytes);
 		return database.update(SCHEDULER_TABLE_NAME, updateValues, SCHEDULER_PRIMARY_KEY + "=" + id, null) > 0;
 	}
 
