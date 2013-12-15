@@ -1,5 +1,6 @@
 package com.scheduler;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +8,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,11 +32,13 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 	//private String currentData;
 	private SchedulerDBAdapter dbAdapter;
 	private Cursor mainCursor;
+	private AlertDialog cameraDialog;
 	
-	public SchedulerDataViewBinder(Context context, Cursor c, SchedulerDBAdapter dbAdapter) {
+	public SchedulerDataViewBinder(Context context, Cursor c, SchedulerDBAdapter dbAdapter, AlertDialog cameraDialog) {
 		this.context = context;
 		this.mainCursor = c;
 		this.dbAdapter = dbAdapter;
+		this.cameraDialog = cameraDialog;
 	}
 
 	@Override
@@ -53,7 +58,6 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			TextView textSchedulerName = (TextView) view;
 			textSchedulerName.setText(name);
 			textSchedulerName.setTag(schedulerId + "#" + name );
-			//textSchedulerName.setBackgroundResource(R.drawable.rounded_corners);
 
 			textSchedulerName.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -129,7 +133,7 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 					
 					final Dialog dialog = new Dialog(arg0.getContext());
 					dialog.setContentView(R.layout.edit_scheduler_dialog);
-					dialog.setTitle(R.string.new_scheduler);
+					dialog.setTitle(R.string.edit_plan);
 					dialog.show();
 
 					ImageButton editScheduler = (ImageButton) arg0;
@@ -161,6 +165,32 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 						public void onClick(View v) {
 							// Close dialog
 							dialog.dismiss();
+						}
+					});
+					
+					Button buttonPicture = (Button) dialog.findViewById(R.id.button_picture);
+					buttonPicture.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							// Open camera/galley dialog
+							cameraDialog.show();
+							
+							// Resize AlertDialog
+							DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+							WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+							windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+							int mwidth = displayMetrics.heightPixels;
+							int mheight = displayMetrics.widthPixels;
+							WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+							lp.copyFrom(cameraDialog.getWindow().getAttributes());
+							lp.width = mwidth/2;
+							lp.height = mheight;
+
+							//set the dim level of the background
+							lp.dimAmount=0.1f;
+							cameraDialog.getWindow().setAttributes(lp);
+							//add a blur/dim flags
+							cameraDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND | WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 						}
 					});
 					

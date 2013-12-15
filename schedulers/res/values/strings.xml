@@ -7,7 +7,8 @@
     <string name="name">Name</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="new_scheduler">New scheduler</string>
+    <string name="new_plan">New plan</string>
+    <string name="edit_plan">Edit plan</string>
     <string name="scheduler_added">Scheduler has been added successfully</string>
     <string name="scheduler_modified">Scheduler has been modified successfully</string>
     <string name="scheduler_deleted">Scheduler has been deleted successfully</string>
@@ -17,7 +18,13 @@
     <string name="back">Back</string>
     
     <string name="top_date">date</string>
-	<string name="select_picture">Select picture</string>
+	<string name="from_camera">Take from camera</string>
+	<string name="from_gallery">Select from gallery</string>
+	<string name="select_image">Change image</string>
+	<string name="select_image_button">Change image...</string>
+	<string name="complete_action">Complete action using</string>
+	<string name="not_image_crop_app">Can not find image crop app</string>
+	<string name="choose_crop_app">Choose crop app</string>
 
     <!-- Drag Drop -->
     <integer name="num_images">21</integer>

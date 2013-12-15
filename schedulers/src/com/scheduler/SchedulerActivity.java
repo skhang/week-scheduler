@@ -8,7 +8,6 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,9 +20,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,12 +54,23 @@ public class SchedulerActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		prepareDBConnection();
+		
+		buildPictureDialog();
+		
+		resolveAddButton();
+		
+		loadPlansFromDB();
+	}
+
+	private void prepareDBConnection() {
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
 		dbAdapter.open();
-
-		loadData();
-
-		buildPictureDialog();
+		cursor = dbAdapter.loadSchedulers(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
+		startManagingCursor(cursor);
+	}
+	
+	private void resolveAddButton() {
 		
 		ImageButton addScheduler = (ImageButton) findViewById(R.id.add_scheduler);
 		addScheduler.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +78,7 @@ public class SchedulerActivity extends ListActivity {
 			public void onClick(View arg0) {
 				schedulerDialog = new Dialog(arg0.getContext());
 				schedulerDialog.setContentView(R.layout.edit_scheduler_dialog);
-				schedulerDialog.setTitle(R.string.new_scheduler);
+				schedulerDialog.setTitle(R.string.new_plan);
 				schedulerDialog.show();
 
 				mImageView = (ImageView)schedulerDialog.findViewById(R.id.imageView_picture);
@@ -107,13 +119,29 @@ public class SchedulerActivity extends ListActivity {
 					public void onClick(View v) {
 						// Open camera/galley dialog
 						cameraDialog.show();
+						
+						// Resize AlertDialog
+						DisplayMetrics displayMetrics = new DisplayMetrics();
+						getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+						int mwidth = displayMetrics.heightPixels;
+						int mheight = displayMetrics.widthPixels;
+						WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+						lp.copyFrom(cameraDialog.getWindow().getAttributes());
+						lp.width = (int)(mwidth/1.5);
+						lp.height = mheight;
+
+						//set the dim level of the background
+						lp.dimAmount=0.1f;
+						cameraDialog.getWindow().setAttributes(lp);
+						//add a blur/dim flags
+						cameraDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND | WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 					}
 				});
 			}
 		});
 	}
-
-	public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+	
+	private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
 	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 	    bitmap.compress(CompressFormat.PNG, 0, outputStream);       
 	    return outputStream.toByteArray();
@@ -121,35 +149,31 @@ public class SchedulerActivity extends ListActivity {
 	
 	private void buildPictureDialog() {
 
-		final String[] items = new String[] { "Take from camera", "Select from gallery" };
+		final String[] items = new String[] { getResources().getString(R.string.from_camera), getResources().getString(R.string.from_gallery), getResources().getString(R.string.cancel) };
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, items);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-		builder.setTitle("Select Image");
+		builder.setTitle(getResources().getString(R.string.select_image));
 		builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int item) { // pick from
-																	// camera
+			public void onClick(DialogInterface dialog, int item) { 
 				if (item == 0) {
+					// Pick from camera
 					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
 					mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg"));
-
 					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
-
-					try {
-						intent.putExtra("return-data", true);
-
-						startActivityForResult(intent, PICK_FROM_CAMERA);
-					} catch (ActivityNotFoundException e) {
-						e.printStackTrace();
-					}
-				} else { // pick from file
+					intent.putExtra("return-data", true);
+					startActivityForResult(intent, PICK_FROM_CAMERA);
+					
+				} else if (item == 1) { 
+					// Pick from file
 					Intent intent = new Intent();
-
 					intent.setType("image/*");
 					intent.setAction(Intent.ACTION_GET_CONTENT);
-
-					startActivityForResult(Intent.createChooser(intent, "Complete action using"), PICK_FROM_FILE);
+					startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.complete_action)), PICK_FROM_FILE);
+					
+				} else {
+					// Cancel - close current dialog
+					cameraDialog.dismiss();
 				}
 			}
 		});
@@ -200,10 +224,12 @@ public class SchedulerActivity extends ListActivity {
 		int size = list.size();
 
 		if (size == 0) {
-			Toast.makeText(this, "Can not find image crop app", Toast.LENGTH_SHORT).show();
-
+			
+			Toast.makeText(this, getResources().getString(R.string.not_image_crop_app), Toast.LENGTH_SHORT).show();
 			return;
+			
 		} else {
+			
 			intent.setData(mImageCaptureUri);
 
 			intent.putExtra("outputX", 60);
@@ -236,7 +262,7 @@ public class SchedulerActivity extends ListActivity {
 				CropOptionAdapter adapter = new CropOptionAdapter(getApplicationContext(), cropOptions);
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setTitle("Choose Crop App");
+				builder.setTitle(getResources().getString(R.string.choose_crop_app));
 				builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int item) {
 						startActivityForResult(cropOptions.get(item).appIntent, CROP_FROM_CAMERA);
@@ -261,14 +287,11 @@ public class SchedulerActivity extends ListActivity {
 		}
 	}
 	 
-	private void loadData() {
+	private void loadPlansFromDB() {
 
-		cursor = dbAdapter.loadSchedulers(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
-		startManagingCursor(cursor);
-		
 		String[] from = new String[] { SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, SchedulerDBAdapter.SCHEDULER_COLUMN_NAME, SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY };
 		int[] to = new int[] { R.id.img_scheduler, R.id.text_scheduler_name, R.id.img_edit_scheduler, R.id.img_delete_scheduler};
-		SchedulerCursorAdapter notas = new SchedulerCursorAdapter(this, R.layout.row, cursor, from, to, dbAdapter);
+		SchedulerCursorAdapter notas = new SchedulerCursorAdapter(this, R.layout.row, cursor, from, to, dbAdapter, cameraDialog);
 		setListAdapter(notas);
 	}
 
