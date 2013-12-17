@@ -127,6 +127,14 @@ public class SchedulerActivity extends ListActivity {
 				});
 			}
 		});
+		
+		ImageButton settingsButton = (ImageButton) findViewById(R.id.imageButton_settings);
+		settingsButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Toast.makeText(getApplicationContext(), "SETTINGS", Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 	
 	public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
