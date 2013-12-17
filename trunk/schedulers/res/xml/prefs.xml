@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:summary="@string/settings"
+        android:title="@string/settings" >
+        <CheckBoxPreference
+            android:key="checkBox"
+            android:summary="@string/pref_show_splash_resp"
+            android:title="@string/pref_show_splash" />
+
+        <ListPreference
+            android:defaultValue="default"
+            android:entries="@array/languages"
+            android:entryValues="@array/languages"
+            android:key="listpref"
+            android:summary="Choose the language for application (default)"
+            android:title="@string/pref_choose_language" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:summary="@string/pref_info"
+        android:title="@string/pref_info" >
+        <Preference
+            android:key="dialog_preference_about"
+            android:summary="@string/pref_about_summary"
+            android:title="@string/pref_about_title" />
+        <Preference
+            android:key="preference_license"
+            android:summary="@string/pref_license"
+            android:title="@string/pref_license_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
