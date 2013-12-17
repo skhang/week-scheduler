@@ -11,4 +11,12 @@
         <item>Sun.</item>
     </string-array>
 
+    <string-array name="languages">
+        <item name="default">default</item>
+        <item name="english">English</item>
+        <item name="spanish">Spanish</item>
+		<item name="euskera">Basque</item>
+		<item name="german">German</item>
+	</string-array>
+	
 </resources>

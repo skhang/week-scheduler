@@ -16,7 +16,7 @@
     <string name="edit_scheduler">Edit scheduler</string>
     <string name="delete_scheduler">Delete scheduler</string>
     <string name="back">Back</string>
-    
+    <string name="settings">Settings</string>
     <string name="top_date">date</string>
 	<string name="from_camera">Take from camera</string>
 	<string name="from_gallery">Select from gallery</string>
