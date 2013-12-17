@@ -3,7 +3,6 @@ package com.scheduler.dragdrop;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -48,10 +46,6 @@ import com.scheduler.db.SchedulerDBAdapter;
  */
 public class DragActivity extends Activity implements View.OnLongClickListener, View.OnClickListener, View.OnTouchListener {
 	
-	private static final int HIDE_TRASHCAN_MENU_ID = Menu.FIRST;
-	private static final int SHOW_TRASHCAN_MENU_ID = Menu.FIRST + 1;
-	private static final int CHANGE_TOUCH_MODE_MENU_ID = Menu.FIRST + 2;
-
 	// Font path
 	private static final String fontPath = "fonts/SQUAREKI.TTF";
     
@@ -219,13 +213,8 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-
-		menu.add(0, HIDE_TRASHCAN_MENU_ID, 0, "Hide Trashcan").setShortcut('1', 'c');
-		menu.add(0, SHOW_TRASHCAN_MENU_ID, 0, "Show Trashcan").setShortcut('2', 'c');
-		menu.add(0, CHANGE_TOUCH_MODE_MENU_ID, 0, "Change Touch Mode");
-
-		return true;
+		
+		return false;
 	}
 
 	/**
@@ -254,31 +243,6 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 			return startDrag(v);
 		}
 		return false;
-	}
-
-	/**
-	 * Perform an action in response to a menu item being clicked.
-	 * 
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case HIDE_TRASHCAN_MENU_ID:
-			if (mDeleteZone != null)
-				mDeleteZone.setVisibility(View.INVISIBLE);
-			return true;
-		case SHOW_TRASHCAN_MENU_ID:
-			if (mDeleteZone != null)
-				mDeleteZone.setVisibility(View.VISIBLE);
-			return true;
-		case CHANGE_TOUCH_MODE_MENU_ID:
-			mLongClickStartsDrag = !mLongClickStartsDrag;
-			String message = mLongClickStartsDrag ? "Changed touch mode. Drag now starts on long touch (click)." : "Changed touch mode. Drag now starts on touch (click).";
-			Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
