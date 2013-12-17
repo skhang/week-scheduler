@@ -99,8 +99,8 @@ public class SchedulerActivity extends ListActivity {
 						Bitmap bitmap = bitmapDrawable.getBitmap();
 						byte[] imageBytes = getBitmapAsByteArray(bitmap);
 						
-						if (!"".equals(newName)) {
-							dbAdapter.insertScheduler(editText.getText().toString(), imageBytes);
+						if (newName != null && !"".equals(newName.trim())) {
+							dbAdapter.insertScheduler(newName.trim(), imageBytes);
 							cursor.requery();
 							Toast.makeText(getApplicationContext(), R.string.scheduler_added, Toast.LENGTH_SHORT).show();
 							schedulerDialog.dismiss();

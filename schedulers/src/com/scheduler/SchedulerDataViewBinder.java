@@ -3,6 +3,7 @@ package com.scheduler;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -36,7 +37,6 @@ import com.scheduler.dragdrop.DragActivity;
 public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 
 	private Context context;
-	//private String currentData;
 	private SchedulerDBAdapter dbAdapter;
 	private Cursor mainCursor;
 	private AlertDialog cameraDialog;
@@ -145,8 +145,6 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 				@Override
 				public void onClick(View arg0) {
 					
-					//final Dialog dialog = new Dialog(arg0.getContext());
-					//dialog.setContentView(R.layout.edit_scheduler_dialog);
 					schedulerDialog.setTitle(R.string.edit_plan);
 					schedulerDialog.show();
 
@@ -170,7 +168,7 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 						public void onClick(View v) {
 							EditText editText = (EditText) schedulerDialog.findViewById(R.id.text_view_scheduler);
 							String newName = editText.getText().toString();
-							if (!"".equals(newName)) {
+							if (newName != null && !"".equals(newName.trim())) {
 								
 								// Get imageview bytes
 								ImageView mImageView = (ImageView)schedulerDialog.findViewById(R.id.imageView_picture);
@@ -178,7 +176,7 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 								Bitmap bitmap = bitmapDrawable.getBitmap();
 								byte[] newImageBytes = SchedulerActivity.getBitmapAsByteArray(bitmap);
 								
-								dbAdapter.updateScheduler(Integer.valueOf(schedulerId), editText.getText().toString(), newImageBytes);
+								dbAdapter.updateScheduler(Integer.valueOf(schedulerId), newName.trim(), newImageBytes);
 								mainCursor.requery();
 								schedulerDialog.dismiss();
 							}
@@ -217,13 +215,29 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 			deleteScheduler.setTag(schedulerId);
 			deleteScheduler.setOnClickListener(new View.OnClickListener() {
 				@Override
-				public void onClick(View arg0) {
-					ImageButton deleteScheduler = (ImageButton) arg0;
-					String schedulerId = deleteScheduler.getTag().toString();
-					dbAdapter.deleteScheduler(Long.valueOf(schedulerId));
-					mainCursor.requery();
-					
-					Toast.makeText(context, R.string.scheduler_deleted, Toast.LENGTH_SHORT).show();
+				public void onClick(final View arg0) {
+					AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+					alertDialog.setTitle(context.getResources().getString(R.string.confirm_delete));
+					alertDialog.setMessage(context.getResources().getString(R.string.confirm_delete_question));
+
+					// Setting Icon to Dialog
+					alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// Remove current plan
+							ImageButton deleteScheduler = (ImageButton) arg0;
+							String schedulerId = deleteScheduler.getTag().toString();
+							dbAdapter.deleteScheduler(Long.valueOf(schedulerId));
+							mainCursor.requery();
+							Toast.makeText(context, R.string.scheduler_deleted, Toast.LENGTH_SHORT).show();
+						}
+					});
+					alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					alertDialog.show();
 				}
 			});
 			return true;
