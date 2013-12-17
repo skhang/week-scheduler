@@ -132,7 +132,8 @@ public class SchedulerActivity extends ListActivity {
 		settingsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Toast.makeText(getApplicationContext(), "SETTINGS", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(SchedulerActivity.this, PrefsActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

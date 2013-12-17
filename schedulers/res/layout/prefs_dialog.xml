@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal" >
+
+    <ImageView
+        android:id="@+id/imageView_prefs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/developer"
+        android:contentDescription="@drawable/developer"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/text_vew_developer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView_prefs"
+        android:text="@string/pref_about_summary"
+        android:layout_centerInParent="true" />
+    
+     <Button
+        android:id="@+id/dialogButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/text_vew_developer" />
+     
+</RelativeLayout>
