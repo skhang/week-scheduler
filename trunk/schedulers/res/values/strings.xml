@@ -21,11 +21,11 @@
 	<string name="from_camera">Take from camera</string>
 	<string name="from_gallery">Select from gallery</string>
 	<string name="select_image">Change image</string>
-	<string name="select_image_button">Change image...</string>
+	<string name="select_image_button">Change image&#8230;</string>
 	<string name="complete_action">Complete action using</string>
 	<string name="not_image_crop_app">Can not find image crop app</string>
 	<string name="choose_crop_app">Choose crop app</string>
-	<string name="confirm_delete">Confirm Delete...</string>
+	<string name="confirm_delete">Confirm delete&#8230;</string>
 	<string name="confirm_delete_question">Are you sure you want delete this plan?</string>
 	
     <!-- Drag Drop -->
