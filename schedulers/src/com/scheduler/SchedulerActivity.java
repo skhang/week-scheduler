@@ -10,12 +10,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -25,7 +26,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +38,7 @@ import android.widget.Toast;
 
 import com.scheduler.db.SchedulerDBAdapter;
 
-public class SchedulerActivity extends ListActivity {
+public class SchedulerActivity extends ListActivity implements OnSharedPreferenceChangeListener {
 
 	private SchedulerDBAdapter dbAdapter;
 	private Cursor cursor;
@@ -51,11 +51,21 @@ public class SchedulerActivity extends ListActivity {
 	private static final int PICK_FROM_CAMERA = 1;
 	private static final int CROP_FROM_CAMERA = 2;
 	private static final int PICK_FROM_FILE = 3;
-
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
+		
+		// Set locale from preferences
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String language = sharedPrefs.getString("language", "default");
+		updateLanguage(this, language);
+		
+		// Register changes on preferences
+		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+		
 		setContentView(R.layout.main);
 
 		prepareDBConnection();
@@ -63,24 +73,39 @@ public class SchedulerActivity extends ListActivity {
 		buildButtonAndDialogs();
 		
 		loadPlansFromDB();
-		
-		//SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		//String language = sharedPrefs.getString("language", "Default");
-		//setLocale(language);
 	}
 	
-	public void setLocale(String lang) {
-		 
-        Locale myLocale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, SchedulerActivity.class);
-        startActivity(refresh);
+	@Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		
+        if (key.equals("language")) {
+        	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+    		String language = sharedPrefs.getString("language", "default");
+    		updateLanguage(this, language);
+    		Intent refresh = new Intent(this, SchedulerActivity.class);
+	        startActivity(refresh);
+        }
     }
 	
+	private void updateLanguage(Context context, String language) {
+	    if (language != null && !"".equals(language)) {
+	    	
+	    	if (language.equals("default")) {
+	    		Locale defaultLocale = Locale.getDefault();
+	    		Locale.setDefault(defaultLocale);
+		        Configuration config = new Configuration();
+		        config.locale = defaultLocale;
+		        context.getResources().updateConfiguration(config, null);
+		        
+	    	} else {
+	    		Locale locale = new Locale(language);
+		        Locale.setDefault(locale);
+		        Configuration config = new Configuration();
+		        config.locale = locale;
+		        context.getResources().updateConfiguration(config, null);
+	    	}
+	    }
+	}
 	private void prepareDBConnection() {
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
 		dbAdapter.open();
@@ -154,7 +179,7 @@ public class SchedulerActivity extends ListActivity {
 		settingsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(SchedulerActivity.this, PrefsActivity.class);
+				Intent intent = new Intent(getApplicationContext(), PrefsActivity.class);
 				startActivity(intent);
 			}
 		});

@@ -19,11 +19,11 @@
 		<item name="german">Alemán</item>
 	</string-array>
 	
-    <string-array name="languages_locales">
-        <item name="default">en_EN</item>
-        <item name="english">en_EN</item>
-        <item name="spanish">es_ES</item>
-		<item name="euskera">es_EU</item>
+   <string-array name="languages_locales">
+        <item name="default">default</item>
+        <item name="english">en</item>
+        <item name="spanish">es</item>
+		<item name="euskera">eu</item>
 		<item name="german">de_DE</item>
 	</string-array>
 	
