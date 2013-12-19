@@ -64,7 +64,7 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		
         if (key.equals("language")) {
         	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-    		String language = sharedPrefs.getString("language", "Default");
+    		String language = sharedPrefs.getString("language", "en_EN");
         	updateLanguage(this, language);
             restartActivity();
         }
