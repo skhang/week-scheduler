@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,7 +12,10 @@ import android.app.ListActivity;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -19,7 +23,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,8 +63,24 @@ public class SchedulerActivity extends ListActivity {
 		buildButtonAndDialogs();
 		
 		loadPlansFromDB();
+		
+		//SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		//String language = sharedPrefs.getString("language", "Default");
+		//setLocale(language);
 	}
-
+	
+	public void setLocale(String lang) {
+		 
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, SchedulerActivity.class);
+        startActivity(refresh);
+    }
+	
 	private void prepareDBConnection() {
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
 		dbAdapter.open();
