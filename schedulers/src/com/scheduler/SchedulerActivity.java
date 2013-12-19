@@ -4,19 +4,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.ResolveInfo;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -47,11 +44,12 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 	private ImageView mImageView;
 	private AlertDialog cameraDialog;
 	private Dialog schedulerDialog;
+	private boolean languageChanged = false;
+	
 	
 	private static final int PICK_FROM_CAMERA = 1;
 	private static final int CROP_FROM_CAMERA = 2;
 	private static final int PICK_FROM_FILE = 3;
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +59,8 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 		// Set locale from preferences
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String language = sharedPrefs.getString("language", "default");
-		updateLanguage(this, language);
+		PrefsActivity.updateLanguage(this, language);
 		
-		// Register changes on preferences
 		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
 		
 		setContentView(R.layout.main);
@@ -75,42 +72,30 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 		loadPlansFromDB();
 	}
 	
-	@Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		
-        if (key.equals("language")) {
-        	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-    		String language = sharedPrefs.getString("language", "default");
-    		updateLanguage(this, language);
-    		Intent refresh = new Intent(this, SchedulerActivity.class);
-	        startActivity(refresh);
-        }
-    }
-	
-	private void updateLanguage(Context context, String language) {
-	    if (language != null && !"".equals(language)) {
-	    	
-	    	if (language.equals("default")) {
-	    		Locale defaultLocale = Locale.getDefault();
-	    		Locale.setDefault(defaultLocale);
-		        Configuration config = new Configuration();
-		        config.locale = defaultLocale;
-		        context.getResources().updateConfiguration(config, null);
-		        
-	    	} else {
-	    		Locale locale = new Locale(language);
-		        Locale.setDefault(locale);
-		        Configuration config = new Configuration();
-		        config.locale = locale;
-		        context.getResources().updateConfiguration(config, null);
-	    	}
-	    }
-	}
 	private void prepareDBConnection() {
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
 		dbAdapter.open();
 		cursor = dbAdapter.loadSchedulers(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
 		startManagingCursor(cursor);
+	}
+	
+	@Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		
+        if (key.equals("language")) {
+        	languageChanged = true;
+        } else {
+        	languageChanged = false;
+        }
+    }
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (languageChanged) {
+			languageChanged = false;
+			this.onCreate(null);
+		}
 	}
 	
 	private void buildButtonAndDialogs() {
@@ -179,8 +164,8 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 		settingsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getApplicationContext(), PrefsActivity.class);
-				startActivity(intent);
+				Intent intentPreferences = new Intent(getApplicationContext(), PrefsActivity.class);
+				startActivity(intentPreferences);
 			}
 		});
 	}
@@ -337,16 +322,12 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 
 		String[] from = new String[] { SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, SchedulerDBAdapter.SCHEDULER_COLUMN_NAME, SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY, SchedulerDBAdapter.SCHEDULER_PRIMARY_KEY };
 		int[] to = new int[] { R.id.img_scheduler, R.id.text_scheduler_name, R.id.img_edit_scheduler, R.id.img_delete_scheduler};
-		SchedulerCursorAdapter notas = new SchedulerCursorAdapter(this, R.layout.row, cursor, from, to, dbAdapter, cameraDialog, schedulerDialog);
-		setListAdapter(notas);
+		SchedulerCursorAdapter plans = new SchedulerCursorAdapter(this, R.layout.row, cursor, from, to, dbAdapter, cameraDialog, schedulerDialog);
+		setListAdapter(plans);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
-		//return true;
 		return false;
 	}
 	
