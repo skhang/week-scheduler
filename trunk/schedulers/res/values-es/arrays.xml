@@ -2,21 +2,21 @@
 <resources>
 
     <string-array name="days_of_week">
-        <item>Mon.</item>
-        <item>Tue.</item>
-        <item>Wed</item>
-        <item>Thu.</item>
-        <item>Fri</item>
-        <item>Sat.</item>
-        <item>Sun.</item>
+        <item>Lun.</item>
+        <item>Mar.</item>
+        <item>Miérc.</item>
+        <item>Juev.</item>
+        <item>Vier.</item>
+        <item>Sáb.</item>
+        <item>Dom.</item>
     </string-array>
 
     <string-array name="languages">
-        <item name="default">Default language</item>
-        <item name="english">English</item>
-        <item name="spanish">Spanish</item>
-		<item name="euskera">Basque</item>
-		<item name="german">German</item>
+        <item name="default">Idioma por defecto</item>
+        <item name="english">Inglés</item>
+        <item name="spanish">Español</item>
+		<item name="euskera">Euskera</item>
+		<item name="german">Alemán</item>
 	</string-array>
 	
     <string-array name="languages_locales">

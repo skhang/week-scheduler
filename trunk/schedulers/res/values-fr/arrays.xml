@@ -12,11 +12,11 @@
     </string-array>
 
     <string-array name="languages">
-        <item name="default">Default language</item>
-        <item name="english">English</item>
-        <item name="spanish">Spanish</item>
+        <item name="default">Langue par défaut</item>
+        <item name="english">Anglais</item>
+        <item name="spanish">Espagnol</item>
 		<item name="euskera">Basque</item>
-		<item name="german">German</item>
+		<item name="german">Allemand</item>
 	</string-array>
 	
     <string-array name="languages_locales">

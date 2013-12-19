@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Smart weeks</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="my_plans">Plan semanal de&#8230;</string>
+    <string name="name">Nombre</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancela</string>
+    <string name="new_plan">Nuevo plan</string>
+    <string name="edit_plan">Editar plan</string>
+    <string name="scheduler_added">El plan se ha creado correctamente</string>
+    <string name="scheduler_modified">El plan se ha modificado correctamente</string>
+    <string name="scheduler_deleted">El plan se ha eliminado correctamente</string>
+    <string name="scheduler_picture">Mi imagen</string>
+    <string name="edit_scheduler">Editar plan</string>
+    <string name="delete_scheduler">Borrar plan</string>
+    <string name="back">Volcer</string>
+    <string name="settings">Ajustes</string>
+    <string name="top_date">fecha</string>
+	<string name="from_camera">De la cámara de fotos</string>
+	<string name="from_gallery">De la galería de imágenes</string>
+	<string name="select_image">Cambiar imagen</string>
+	<string name="select_image_button">Cambiar imagen&#8230;</string>
+	<string name="complete_action">Completa la acción usando</string>
+	<string name="not_image_crop_app">No ha encontrado una aplicación para recortar la imagen</string>
+	<string name="choose_crop_app">Selecciona la aplicación para recortar la imagen</string>
+	<string name="confirm_delete">Confirmar borrado&#8230;</string>
+	<string name="confirm_delete_question">Estás seguro de que quieres eliminar este plan?</string>
+	<string name="pref_show_splash">Ver pantalla de bienvenida al inicio</string>
+	<string name="pref_show_splash_resp">Sí/No (sólo la primera vez)</string>
+	<string name="pref_choose_language">Camiar idioma</string>
+	<string name="pref_choose_language_info">Selecciona el idioma para la aplicación.</string>
+	<string name="pref_about_title">Sobre Smart weeks&#8230;</string>
+	<string name="pref_about_summary">Aplicación desarrollada por Iker Canarias.</string>
+	<string name="pref_info">Información</string>
+	<string name="pref_license_title">Licencia</string>
+	<string name="pref_license">Esta aplicación se encuentra bajo la licencia GNU GENERAL PUBLIC LICENSE (GPL v3).</string>
+	<string name="pref_dialog_title">Desarrollador de la aplicación</string>
+	<string name="pref_default_language">Idioma por defecto</string>
+	
+    <!-- Drag Drop -->
+    <integer name="num_images">21</integer>
+    <integer name="num_columns">7</integer>
+    <string name="instructions">Presiona y mantiene para arrastrar la imagen.</string>
+
+</resources>

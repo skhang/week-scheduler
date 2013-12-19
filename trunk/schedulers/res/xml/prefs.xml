@@ -12,9 +12,9 @@
         <ListPreference
             android:defaultValue="default"
             android:entries="@array/languages"
-            android:entryValues="@array/languages"
-            android:key="listpref"
-            android:summary="Choose the language for application (default)"
+            android:entryValues="@array/languages_locales"
+            android:key="language"
+            android:summary=""
             android:title="@string/pref_choose_language" />
     </PreferenceCategory>
     
