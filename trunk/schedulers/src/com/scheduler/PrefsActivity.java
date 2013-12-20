@@ -24,6 +24,10 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		addPreferencesFromResource(R.xml.prefs);
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+		addDialog();
+	}
+	
+	private void addDialog() {
 		
 		Preference dialogPreference = (Preference) getPreferenceScreen().findPreference("dialog_preference_about");
 		dialogPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -46,7 +50,6 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		        }
 		    }
 		);
-		
 	}
 	
 	public static void updateLanguage(Context context, String language) {
@@ -66,7 +69,7 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
         	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
     		String language = sharedPrefs.getString("language", "en_EN");
         	updateLanguage(this, language);
-            restartActivity();
+        	restartPrefereces();
         }
     }
 	
@@ -77,14 +80,11 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 	    getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
 	}
 		
-	private void restartActivity() {
+	private void restartPrefereces() {
 		
-		//Intent intentMain = new Intent(getApplicationContext(), SchedulerActivity.class);
-		//finish();
-		//startActivity(intentMain);
-		    
 		setPreferenceScreen(null);
 		addPreferencesFromResource(R.xml.prefs);
+		addDialog();
 	}
 	
 	@Override
