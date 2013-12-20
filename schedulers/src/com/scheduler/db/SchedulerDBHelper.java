@@ -9,6 +9,8 @@ public class SchedulerDBHelper extends SQLiteOpenHelper {
 	// DB name and version
 	private static final String DB_NAME = "smart_week.db";
 	private static final int DB_VERSION = 3;
+	
+	private boolean firstTime = false;
 
 	// SQL Create table
 	private static final String CREATE_SCHEDULERS_TABLE = "CREATE TABLE " + SchedulerDBAdapter.SCHEDULER_TABLE_NAME + 
@@ -28,6 +30,7 @@ public class SchedulerDBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase database) {
+		firstTime = true;
 		database.execSQL(CREATE_SCHEDULERS_TABLE);
 		database.execSQL(CREATE_TASK_TABLE);
 	}
@@ -37,5 +40,13 @@ public class SchedulerDBHelper extends SQLiteOpenHelper {
 		database.execSQL("DROP TABLE IF EXISTS " + SchedulerDBAdapter.SCHEDULER_TABLE_NAME);
 		database.execSQL("DROP TABLE IF EXISTS " + SchedulerDBAdapter.TASK_TABLE_NAME);
 		onCreate(database);
+	}
+
+	public boolean isFirstTime() {
+		return firstTime;
+	}
+
+	public void setFirstTime(boolean firstTime) {
+		this.firstTime = firstTime;
 	}
 }

@@ -24,7 +24,7 @@ public class SchedulerDBAdapter {
 	
 	private Context context;
 	private SQLiteDatabase database;
-	private SchedulerDBHelper bdHelper;
+	private SchedulerDBHelper dbHelper;
 
 	private static SchedulerDBAdapter INSTANCE = null;
 	
@@ -51,9 +51,9 @@ public class SchedulerDBAdapter {
 
 	public SchedulerDBAdapter open() throws SQLException {
 		
-		if (bdHelper == null) {
-			bdHelper = new SchedulerDBHelper(context);
-			database = bdHelper.getWritableDatabase();
+		if (dbHelper == null) {
+			dbHelper = new SchedulerDBHelper(context);
+			database = dbHelper.getWritableDatabase();
 		}
 		return this;
 	}
@@ -67,9 +67,9 @@ public class SchedulerDBAdapter {
 			database.close();
 		}
 		
-		if (bdHelper != null) {
-			bdHelper.close();
-			bdHelper = null;
+		if (dbHelper != null) {
+			dbHelper.close();
+			dbHelper = null;
 		}
 	}
 
@@ -274,5 +274,9 @@ public class SchedulerDBAdapter {
 	 */
 	public Object clone() throws CloneNotSupportedException {
 	        throw new CloneNotSupportedException(); 
+	}
+
+	public SchedulerDBHelper getDBHelper() {
+		return dbHelper;
 	}
 }

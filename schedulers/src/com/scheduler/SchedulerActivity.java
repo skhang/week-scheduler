@@ -70,11 +70,24 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 		buildButtonAndDialogs();
 		
 		loadPlansFromDB();
+		
+		boolean viewSplashScreen = sharedPrefs.getBoolean("checkBoxSplashScreen", false);
+		if (!dbAdapter.getDBHelper().isFirstTime() && viewSplashScreen) {
+			Intent spalshIntent = new Intent().setClass(this, SplashScreenActivity.class);
+			startActivity(spalshIntent);
+		}
+		
 	}
 	
 	private void prepareDBConnection() {
 		dbAdapter = SchedulerDBAdapter.getInstace(this);
 		dbAdapter.open();
+		
+		if (dbAdapter.getDBHelper().isFirstTime()) {
+			Intent spalshIntent = new Intent().setClass(this, SplashScreenActivity.class);
+			startActivity(spalshIntent);
+		}
+		
 		cursor = dbAdapter.loadSchedulers(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
 		startManagingCursor(cursor);
 	}
