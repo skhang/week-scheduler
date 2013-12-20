@@ -5,7 +5,7 @@
         android:summary="@string/settings"
         android:title="@string/settings" >
         <CheckBoxPreference
-            android:key="checkBox"
+            android:key="checkBoxSplashScreen"
             android:summary="@string/pref_show_splash_resp"
             android:title="@string/pref_show_splash" />
 
