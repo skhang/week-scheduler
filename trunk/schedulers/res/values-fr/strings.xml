@@ -30,7 +30,7 @@
 	<string name="pref_show_splash">Show splash screen on startup</string>
 	<string name="pref_show_splash_resp">Yes/No (only first time)</string>
 	<string name="pref_choose_language">Choose language</string>
-	<string name="pref_about_title">About Smart weeks&#8230;</string>
+	<string name="pref_about_title">About the author&#8230;</string>
 	<string name="pref_about_summary">Application developed by Iker Canarias.</string>
 	<string name="pref_info">Information</string>
 	<string name="pref_license_title">License</string>
