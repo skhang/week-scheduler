@@ -54,11 +54,20 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 	
 	public static void updateLanguage(Context context, String language) {
 	    if (language != null && !"".equals(language)) {
-	        Locale locale = new Locale(language);
-	        Locale.setDefault(locale);
-	        Configuration config = new Configuration();
-	        config.locale = locale;
-	        context.getResources().updateConfiguration(config, null);
+	    	
+	    	if (language.equalsIgnoreCase("default")) {
+	    		Locale locale = Locale.getDefault();
+		        Configuration config = new Configuration();
+		        config.locale = locale;
+		        context.getResources().updateConfiguration(config, null);
+		        
+	    	} else {
+	    		Locale locale = new Locale(language);
+		        //Locale.setDefault(locale);
+		        Configuration config = new Configuration();
+		        config.locale = locale;
+		        context.getResources().updateConfiguration(config, null);
+	    	}
 	    }
 	}
 	
