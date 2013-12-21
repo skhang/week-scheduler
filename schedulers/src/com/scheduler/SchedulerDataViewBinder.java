@@ -229,7 +229,7 @@ public class SchedulerDataViewBinder implements SimpleCursorAdapter.ViewBinder {
 							String schedulerId = deleteScheduler.getTag().toString();
 							dbAdapter.deleteScheduler(Long.valueOf(schedulerId));
 							mainCursor.requery();
-							Toast.makeText(context, R.string.scheduler_deleted, Toast.LENGTH_SHORT).show();
+							//Toast.makeText(context, R.string.scheduler_deleted, Toast.LENGTH_SHORT).show();
 						}
 					});
 					alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {

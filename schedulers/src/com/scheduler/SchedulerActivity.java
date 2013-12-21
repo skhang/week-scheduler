@@ -72,7 +72,7 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 		loadPlansFromDB();
 		
 		boolean viewSplashScreen = sharedPrefs.getBoolean("checkBoxSplashScreen", false);
-		if (!dbAdapter.getDBHelper().isFirstTime() && viewSplashScreen) {
+		if (viewSplashScreen) {
 			Intent spalshIntent = new Intent().setClass(this, SplashScreenActivity.class);
 			startActivity(spalshIntent);
 		}
@@ -86,6 +86,7 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 		if (dbAdapter.getDBHelper().isFirstTime()) {
 			Intent spalshIntent = new Intent().setClass(this, SplashScreenActivity.class);
 			startActivity(spalshIntent);
+			dbAdapter.getDBHelper().setFirstTime(false);
 		}
 		
 		cursor = dbAdapter.loadSchedulers(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
@@ -147,7 +148,7 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 						if (newName != null && !"".equals(newName.trim())) {
 							dbAdapter.insertScheduler(newName.trim(), imageBytes);
 							cursor.requery();
-							Toast.makeText(getApplicationContext(), R.string.scheduler_added, Toast.LENGTH_SHORT).show();
+							//Toast.makeText(getApplicationContext(), R.string.scheduler_added, Toast.LENGTH_SHORT).show();
 							schedulerDialog.dismiss();
 						}
 					}

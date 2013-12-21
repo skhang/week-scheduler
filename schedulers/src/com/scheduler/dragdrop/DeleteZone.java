@@ -88,8 +88,9 @@ public class DeleteZone extends ImageView implements DropTarget {
 	 * 
 	 */
 	public void onDrop(DragSource source, int x, int y, int xOffset, int yOffset, DragView dragView, Object dragInfo) {
-		if (isEnabled())
-			toast("Moved to trash.");
+		if (isEnabled()) {
+			//toast("Moved to trash.");
+		}
 
 	}
 
@@ -175,9 +176,6 @@ public class DeleteZone extends ImageView implements DropTarget {
 		return null;
 	}
 
-	/**
- */
-	// Methods
 
 	/**
 	 * Return true if this DeleteZone is enabled. If it is, it means that it
@@ -188,7 +186,7 @@ public class DeleteZone extends ImageView implements DropTarget {
 
 	public boolean isEnabled() {
 		return mEnabled && (getVisibility() == View.VISIBLE);
-	} // end getDragLayer
+	}
 
 	/**
 	 * Set up the drop spot by connecting it to a drag controller. When this
@@ -208,10 +206,6 @@ public class DeleteZone extends ImageView implements DropTarget {
 	}
 
 	/**
- */
-	// More methods
-
-	/**
 	 * Show a string on the screen via Toast.
 	 * 
 	 * @param msg
@@ -221,6 +215,6 @@ public class DeleteZone extends ImageView implements DropTarget {
 
 	public void toast(String msg) {
 		Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-	} // end toast
+	}
 
-} // end DeleteZone
+}
