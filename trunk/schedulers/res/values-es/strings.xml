@@ -42,6 +42,6 @@
     <!-- Drag Drop -->
     <integer name="num_images">21</integer>
     <integer name="num_columns">7</integer>
-    <string name="instructions">Presiona y mantiene para arrastrar la imagen.</string>
+    <string name="instructions">Presiona y mantén para arrastrar la imagen.</string>
 
 </resources>
