@@ -237,7 +237,7 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	public boolean onLongClick(View v) {
 		if (mLongClickStartsDrag) {
 			if (!v.isInTouchMode()) {
-				toast("isInTouchMode returned false. Try touching the view again.");
+				//toast("isInTouchMode returned false. Try touching the view again.");
 				return false;
 			}
 			return startDrag(v);
