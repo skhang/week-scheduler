@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="days_of_week">
+        <item>Al.</item>
+        <item>As.</item>
+        <item>Az.</item>
+        <item>Og.</item>
+        <item>Or.</item>
+        <item>Lr.</item>
+        <item>Il.</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item name="default">Hizkuntza lehenetsia</item>
+        <item name="english">Ingelesa</item>
+        <item name="spanish">Gaztelania</item>
+		<item name="euskera">Euskara</item>
+		<item name="german">Aleman</item>
+	</string-array>
+	
+    <string-array name="languages_locales">
+        <item name="default">default</item>
+        <item name="english">en</item>
+        <item name="spanish">es</item>
+		<item name="euskera">eu</item>
+		<item name="german">de_DE</item>
+	</string-array>
+	
+</resources>
