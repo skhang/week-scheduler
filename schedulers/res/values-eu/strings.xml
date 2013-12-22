@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Smart weeks</string>
+    <string name="action_settings">Doikuntzak</string>
+    <string name="my_plans">Asteko plangintza:</string>
+    <string name="name">Izena</string>
+    <string name="ok">Ados</string>
+    <string name="cancel">Ezeztatu</string>
+    <string name="new_plan">Plana berria</string>
+    <string name="edit_plan">Plana aldatu</string>
+    <string name="scheduler_added">Plana </string>
+    <string name="scheduler_modified">Plana ondo sortu da.</string>
+    <string name="scheduler_deleted">Plana ondo ezabatu da.</string>
+    <string name="scheduler_picture">Nire irudia</string>
+    <string name="edit_scheduler">Plana aldatu</string>
+    <string name="delete_scheduler">Plana ezabatu</string>
+    <string name="back">Itzuli</string>
+    <string name="settings">Doikuntzak</string>
+    <string name="top_date">data</string>
+	<string name="from_camera">Argazki kamaratik</string>
+	<string name="from_gallery">Irudietatik</string>
+	<string name="select_image">Irudia aldatu</string>
+	<string name="select_image_button">Irudia aldatu&#8230;</string>
+	<string name="complete_action">Ekintza osatu</string>
+	<string name="not_image_crop_app">Ez dago aplikaziorik irudiak mozteko</string>
+	<string name="choose_crop_app">Irudiak mozteko aplikazioa aukeratu</string>
+	<string name="confirm_delete">Ezabaketa egiaztatu&#8230;</string>
+	<string name="confirm_delete_question">Seguru zaude plana ezabatu nahi duzula?</string>
+	<string name="pref_show_splash">Ongietorri mezua ikusi</string>
+	<string name="pref_show_splash_resp">Bai/Ez</string>
+	<string name="pref_choose_language">Hizkuntza aukeratu</string>
+	<string name="pref_about_title">Egileari buruzko informazioa</string>
+	<string name="pref_about_summary">Iker Canarias eginiko aplikazioa.</string>
+	<string name="pref_info">Informazioa</string>
+	<string name="pref_license_title">Lizentzia</string>
+	<string name="pref_license">Aplikazio honek GNU GENERAL PUBLIC LICENSE (GPL v3) lizentzia dauka.</string>
+	<string name="pref_dialog_title">Aplikazioaren egilea</string>
+	<string name="pref_default_language">Hizkuntza lehenetsia</string>
+	
+    <!-- Drag Drop -->
+    <integer name="num_images">21</integer>
+    <integer name="num_columns">7</integer>
+    <string name="instructions">Sakatu eta mantendu irudia arrastatzeko.</string>
+
+</resources>
