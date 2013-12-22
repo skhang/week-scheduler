@@ -35,7 +35,7 @@
 	<string name="pref_about_summary">Application developed by Iker Canarias.</string>
 	<string name="pref_info">Information</string>
 	<string name="pref_license_title">License</string>
-	<string name="pref_license">This application is licensed under GNU GENERAL PUBLIC LICENSE (GPL v3).</string>
+	<string name="pref_license">This application is licensed under GNU GENERAL PUBLIC LICENSE (GPL v3). More info in https://code.google.com/p/week-scheduler/</string>
 	<string name="pref_dialog_title">Application developer</string>
 	<string name="pref_default_language">Default language</string>
 	
