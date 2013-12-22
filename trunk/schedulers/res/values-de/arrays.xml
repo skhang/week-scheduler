@@ -2,21 +2,21 @@
 <resources>
 
     <string-array name="days_of_week">
-        <item>Mo.</item>
-        <item>Di.</item>
-        <item>Mi.</item>
-        <item>Do.</item>
-        <item>Fr.</item>
-        <item>Sa.</item>
-        <item>So.</item>
+        <item>Al.</item>
+        <item>As.</item>
+        <item>Az.</item>
+        <item>Og.</item>
+        <item>Or.</item>
+        <item>Lr.</item>
+        <item>Il.</item>
     </string-array>
 
     <string-array name="languages">
-        <item name="default">Default language</item>
-        <item name="english">English</item>
-        <item name="spanish">Spanish</item>
-		<item name="euskera">Basque</item>
-		<item name="german">German</item>
+        <item name="default">Hizkuntza lehenetsia</item>
+        <item name="english">Ingelesa</item>
+        <item name="spanish">Gaztelania</item>
+		<item name="euskera">Euskara</item>
+		<item name="german">Aleman</item>
 	</string-array>
 	
     <string-array name="languages_locales">
