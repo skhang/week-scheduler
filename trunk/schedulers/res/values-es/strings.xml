@@ -6,7 +6,7 @@
     <string name="my_plans">Plan semanal de&#8230;</string>
     <string name="name">Nombre</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancela</string>
+    <string name="cancel">Cancelar</string>
     <string name="new_plan">Nuevo plan</string>
     <string name="edit_plan">Editar plan</string>
     <string name="scheduler_added">El plan se ha creado correctamente</string>
