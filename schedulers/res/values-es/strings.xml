@@ -38,10 +38,10 @@
 	<string name="pref_license">Esta aplicación se encuentra bajo la licencia GNU GENERAL PUBLIC LICENSE (GPL v3). Más inforación en https://code.google.com/p/week-scheduler/</string>
 	<string name="pref_dialog_title">Desarrollador de la aplicación</string>
 	<string name="pref_default_language">Idioma por defecto</string>
+	<string name="instructions">Presiona y mantén para arrastrar la imagen.</string>
 	
     <!-- Drag Drop -->
     <integer name="num_images">21</integer>
     <integer name="num_columns">7</integer>
-    <string name="instructions">Presiona y mantén para arrastrar la imagen.</string>
-
+    
 </resources>
