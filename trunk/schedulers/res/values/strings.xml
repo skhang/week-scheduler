@@ -3,18 +3,18 @@
 
     <string name="app_name">Smart weeks</string>
     <string name="action_settings">Settings</string>
-    <string name="my_plans">Weekly plan for&#8230;</string>
+    <string name="my_plans">Weekly planning for&#8230;</string>
     <string name="name">Name</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="new_plan">New plan</string>
-    <string name="edit_plan">Edit plan</string>
-    <string name="scheduler_added">Plan has been added successfully</string>
-    <string name="scheduler_modified">Plan has been modified successfully</string>
-    <string name="scheduler_deleted">Plan has been deleted successfully</string>
+    <string name="new_plan">New planning</string>
+    <string name="edit_plan">Edit planning</string>
+    <string name="scheduler_added">Planning has been added successfully</string>
+    <string name="scheduler_modified">Planning has been modified successfully</string>
+    <string name="scheduler_deleted">Planning has been deleted successfully</string>
     <string name="scheduler_picture">My picture</string>
-    <string name="edit_scheduler">Edit plan</string>
-    <string name="delete_scheduler">Delete plan</string>
+    <string name="edit_scheduler">Edit planning</string>
+    <string name="delete_scheduler">Delete planning</string>
     <string name="back">Back</string>
     <string name="settings">Settings</string>
     <string name="top_date">date</string>
@@ -26,7 +26,7 @@
 	<string name="not_image_crop_app">Can not find image crop app</string>
 	<string name="choose_crop_app">Choose crop app</string>
 	<string name="confirm_delete">Confirm delete&#8230;</string>
-	<string name="confirm_delete_question">Are you sure you want delete this plan?</string>
+	<string name="confirm_delete_question">Are you sure you want delete this planing?</string>
 	<string name="pref_show_splash">Show splash screen on startup</string>
 	<string name="pref_show_splash_resp">Yes/No (only first time)</string>
 	<string name="pref_choose_language">Choose language</string>
@@ -38,10 +38,10 @@
 	<string name="pref_license">This application is licensed under GNU GENERAL PUBLIC LICENSE (GPL v3). More info in https://code.google.com/p/week-scheduler/</string>
 	<string name="pref_dialog_title">Application developer</string>
 	<string name="pref_default_language">Default language</string>
+	<string name="instructions">Press and hold to drag an image.</string>
 	
     <!-- Drag Drop -->
     <integer name="num_images">21</integer>
     <integer name="num_columns">7</integer>
-    <string name="instructions">Press and hold to drag an image.</string>
-
+    
 </resources>

@@ -17,6 +17,7 @@
         <item name="spanish">Espagnol</item>
 		<item name="euskera">Basque</item>
 		<item name="german">Allemand</item>
+		<item name="french">Français</item>
 	</string-array>
 	
     <string-array name="languages_locales">
@@ -25,6 +26,7 @@
         <item name="spanish">es</item>
 		<item name="euskera">eu</item>
 		<item name="german">de_DE</item>
+		<item name="french">fr</item>
 	</string-array>
 	
 </resources>
