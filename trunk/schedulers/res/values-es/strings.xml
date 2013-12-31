@@ -32,7 +32,7 @@
 	<string name="pref_choose_language">Cambiar idioma</string>
 	<string name="pref_choose_language_info">Selecciona el idioma para la aplicación.</string>
 	<string name="pref_about_title">Sobre el autor&#8230;</string>
-	<string name="pref_about_summary">Aplicación desarrollada por Iker Canarias.</string>
+	<string name="pref_about_summary">Copyright 2013 Iker Canarias.</string>
 	<string name="pref_info">Información</string>
 	<string name="pref_license_title">Licencia</string>
 	<string name="pref_license">Esta aplicación se encuentra bajo la licencia GNU GENERAL PUBLIC LICENSE (GPL v3). Más inforación en https://code.google.com/p/week-scheduler/</string>
