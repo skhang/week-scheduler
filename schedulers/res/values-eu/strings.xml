@@ -31,7 +31,7 @@
 	<string name="pref_show_splash_resp">Bai/Ez</string>
 	<string name="pref_choose_language">Hizkuntza aukeratu</string>
 	<string name="pref_about_title">Egileari buruzko informazioa</string>
-	<string name="pref_about_summary">Iker Canarias eginiko aplikazioa.</string>
+	<string name="pref_about_summary">Copyright 2013 Iker Canarias.</string>
 	<string name="pref_info">Informazioa</string>
 	<string name="pref_license_title">Lizentzia</string>
 	<string name="pref_license">Aplikazio honek GNU GENERAL PUBLIC LICENSE (GPL v3) lizentzia dauka. Informazio gehiago https://code.google.com/p/week-scheduler/</string>
