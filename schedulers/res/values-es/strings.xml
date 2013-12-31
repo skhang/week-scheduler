@@ -15,7 +15,7 @@
     <string name="scheduler_picture">Mi imagen</string>
     <string name="edit_scheduler">Editar plan</string>
     <string name="delete_scheduler">Borrar plan</string>
-    <string name="back">Volcer</string>
+    <string name="back">Volver</string>
     <string name="settings">Ajustes</string>
     <string name="top_date">fecha</string>
 	<string name="from_camera">De la cámara de fotos</string>
@@ -29,6 +29,8 @@
 	<string name="confirm_delete_question">Estás seguro de que quieres eliminar este plan?</string>
 	<string name="pref_show_splash">Ver pantalla de bienvenida al inicio</string>
 	<string name="pref_show_splash_resp">Sí/No (sólo la primera vez)</string>
+	<string name="pref_start_week">Empezar la semana en domindo.</string>
+	<string name="pref_start_week_resp">Sí/No</string>
 	<string name="pref_choose_language">Cambiar idioma</string>
 	<string name="pref_choose_language_info">Selecciona el idioma para la aplicación.</string>
 	<string name="pref_about_title">Sobre el autor&#8230;</string>

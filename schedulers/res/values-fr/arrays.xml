@@ -11,6 +11,16 @@
         <item>Dim.</item>
     </string-array>
 
+    <string-array name="days_of_week_sunday">
+        <item>Dim.</item>
+        <item>Lun.</item>
+        <item>Mar.</item>
+        <item>Merc.</item>
+        <item>Jeu.</item>
+        <item>Ven.</item>
+        <item>Sam.</item>
+    </string-array>
+    
     <string-array name="languages">
         <item name="default">Langue par défaut</item>
         <item name="english">Anglais</item>

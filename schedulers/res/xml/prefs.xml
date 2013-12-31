@@ -9,6 +9,11 @@
             android:summary="@string/pref_show_splash_resp"
             android:title="@string/pref_show_splash" />
 
+         <CheckBoxPreference
+            android:key="checkBoxStartWeekOnSunday"
+            android:summary="@string/pref_start_week_resp"
+            android:title="@string/pref_start_week" />
+         
         <ListPreference
             android:defaultValue="default"
             android:entries="@array/languages"
@@ -16,6 +21,7 @@
             android:key="language"
             android:summary=""
             android:title="@string/pref_choose_language" />
+        
     </PreferenceCategory>
     
     <PreferenceCategory

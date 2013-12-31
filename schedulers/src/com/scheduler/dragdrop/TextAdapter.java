@@ -23,7 +23,9 @@ package com.scheduler.dragdrop;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -37,10 +39,19 @@ public class TextAdapter extends BaseAdapter {
 
 	private Context context;
 	private static String[] DAYS_OF_WEEK;
-
+	boolean startWeekOnSunday;
+	
 	public TextAdapter(Context context) {
 		this.context = context;
-		DAYS_OF_WEEK = this.context.getResources().getStringArray(R.array.days_of_week);
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+		startWeekOnSunday = sharedPrefs.getBoolean("checkBoxStartWeekOnSunday", false);
+		if (startWeekOnSunday) {
+			DAYS_OF_WEEK = this.context.getResources().getStringArray(R.array.days_of_week_sunday);
+		} else {
+			DAYS_OF_WEEK = this.context.getResources().getStringArray(R.array.days_of_week);
+		}
+		
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -68,7 +79,12 @@ public class TextAdapter extends BaseAdapter {
 	}
 
 	private int getToday() {
-		int today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2;
+		int today = 0;
+		if (!startWeekOnSunday) {
+			today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2;
+		} else {
+			today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
+		}
 		if (today < 0) {
 			today = 6;
 		}

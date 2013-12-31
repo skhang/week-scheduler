@@ -30,6 +30,8 @@
 	<string name="pref_show_splash">Ongietorri mezua ikusi</string>
 	<string name="pref_show_splash_resp">Bai/Ez</string>
 	<string name="pref_choose_language">Hizkuntza aukeratu</string>
+	<string name="pref_start_week">Astea igandean hasi.</string>
+	<string name="pref_start_week_resp">Bai/Ez</string>
 	<string name="pref_about_title">Egileari buruzko informazioa</string>
 	<string name="pref_about_summary">Copyright 2013 Iker Canarias.</string>
 	<string name="pref_info">Informazioa</string>
