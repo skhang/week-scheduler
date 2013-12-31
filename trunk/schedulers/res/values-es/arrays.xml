@@ -11,6 +11,16 @@
         <item>Dom.</item>
     </string-array>
 
+	<string-array name="days_of_week_sunday">
+        <item>Dom.</item>
+	    <item>Lun.</item>
+        <item>Mar.</item>
+        <item>Miérc.</item>
+        <item>Juev.</item>
+        <item>Vier.</item>
+        <item>Sáb.</item>
+    </string-array>
+    
     <string-array name="languages">
         <item name="default">Idioma por defecto</item>
         <item name="english">Inglés</item>

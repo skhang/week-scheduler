@@ -29,6 +29,8 @@
 	<string name="confirm_delete_question">Are you sure you want delete this planing?</string>
 	<string name="pref_show_splash">Show splash screen on startup</string>
 	<string name="pref_show_splash_resp">Yes/No (only first time)</string>
+	<string name="pref_start_week">Start week on sunday.</string>
+	<string name="pref_start_week_resp">Yes/No</string>
 	<string name="pref_choose_language">Choose language</string>
 	<string name="pref_choose_language_info">Choose the language for application.</string>
 	<string name="pref_about_title">About the author&#8230;</string>
