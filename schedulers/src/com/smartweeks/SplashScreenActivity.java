@@ -23,7 +23,7 @@ package com.smartweeks;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 
 import android.app.Activity;
 import android.os.Bundle;

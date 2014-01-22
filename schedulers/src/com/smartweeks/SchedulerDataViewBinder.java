@@ -47,7 +47,7 @@ import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 import com.smartweeks.db.SchedulerDBAdapter;
 import com.smartweeks.dragdrop.DragActivity;
 

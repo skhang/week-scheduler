@@ -30,7 +30,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 
 /**
  * This class is used with a GridView object. 

@@ -29,7 +29,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 
 /**
  * This subclass of ImageView is used to display an image on an GridView. An

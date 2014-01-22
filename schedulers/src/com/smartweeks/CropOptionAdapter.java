@@ -32,7 +32,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 
 /**
  * Adapter for crop option list.
