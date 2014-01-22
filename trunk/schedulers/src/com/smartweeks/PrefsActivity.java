@@ -22,7 +22,7 @@ package com.smartweeks;
 
 import java.util.Locale;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 
 import android.app.Dialog;
 import android.content.Context;

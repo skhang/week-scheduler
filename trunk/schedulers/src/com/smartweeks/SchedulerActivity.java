@@ -53,7 +53,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 import com.smartweeks.db.SchedulerDBAdapter;
 
 public class SchedulerActivity extends ListActivity implements OnSharedPreferenceChangeListener {

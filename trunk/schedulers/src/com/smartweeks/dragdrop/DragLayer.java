@@ -29,7 +29,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 
 /**
  * A ViewGroup that supports dragging within it. Dragging starts in an object

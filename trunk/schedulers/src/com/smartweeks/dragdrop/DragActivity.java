@@ -44,7 +44,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 import com.smartweeks.db.SchedulerDBAdapter;
 
 /**

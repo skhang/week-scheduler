@@ -33,7 +33,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.scheduler.R;
+import com.smartweeks.R;
 
 public class TextAdapter extends BaseAdapter {
 
