@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.scheduler.SchedulerActivity"
+            android:name="com.smartweeks.SchedulerActivity"
             android:label="@string/app_name" 
             android:configChanges="keyboardHidden"
             android:screenOrientation="landscape"
@@ -29,7 +29,7 @@
         </activity>
         
         <activity
-	        android:name=".dragdrop.DragActivity"
+	        android:name="com.smartweeks.dragdrop.DragActivity"
 	        android:label="@string/app_name" 
 	        android:configChanges="keyboardHidden"
             android:screenOrientation="landscape"
@@ -37,14 +37,14 @@
 	    </activity>
 	    
 	    <activity
-            android:name=".PrefsActivity"
+            android:name="com.smartweeks.PrefsActivity"
             android:label="@string/app_name" 
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
   
 	    <activity
-            android:name=".SplashScreenActivity"
+            android:name="com.smartweeks.SplashScreenActivity"
             android:label="@string/app_name" 
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
