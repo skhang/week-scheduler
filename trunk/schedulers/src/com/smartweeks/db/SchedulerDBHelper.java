@@ -28,7 +28,7 @@ public class SchedulerDBHelper extends SQLiteOpenHelper {
 	
 	// DB name and version
 	private static final String DB_NAME = "smart_week.db";
-	private static final int DB_VERSION = 3;
+	private static final int DB_VERSION = 4;
 	
 	private boolean firstTime = false;
 
@@ -44,6 +44,10 @@ public class SchedulerDBHelper extends SQLiteOpenHelper {
 			SchedulerDBAdapter.TASK_COLUMN_ID_IMAGE + " integer, " +
 			" FOREIGN KEY(" + SchedulerDBAdapter.TASK_COLUMN_FK_SCHEDULERS + ") REFERENCES " + SchedulerDBAdapter.SCHEDULER_TABLE_NAME + "(_id));";
 	
+	private static final String CREATE_IMAGES_TABLE = "CREATE TABLE " + SchedulerDBAdapter.IMAGES_TABLE_NAME + 
+			" (_id integer primary key autoincrement, " +
+			" image blob not null);";
+	
 	public SchedulerDBHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 	}
@@ -53,12 +57,14 @@ public class SchedulerDBHelper extends SQLiteOpenHelper {
 		firstTime = true;
 		database.execSQL(CREATE_SCHEDULERS_TABLE);
 		database.execSQL(CREATE_TASK_TABLE);
+		database.execSQL(CREATE_IMAGES_TABLE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 		database.execSQL("DROP TABLE IF EXISTS " + SchedulerDBAdapter.SCHEDULER_TABLE_NAME);
 		database.execSQL("DROP TABLE IF EXISTS " + SchedulerDBAdapter.TASK_TABLE_NAME);
+		database.execSQL("DROP TABLE IF EXISTS " + SchedulerDBAdapter.IMAGES_TABLE_NAME);
 		onCreate(database);
 	}
 

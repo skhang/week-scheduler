@@ -42,6 +42,10 @@ public class SchedulerDBAdapter {
 	public static final String TASK_COLUMN_CELL_NUMBER = "cell_number";
 	public static final String TASK_COLUMN_ID_IMAGE = "id_image";
 	
+	public static final String IMAGES_TABLE_NAME = "images";
+	public static final String IMAGES_PRIMARY_KEY = "_id";
+	public static final String IMAGES_COLUMN_IMAGE = "image";
+	
 	private Context context;
 	private SQLiteDatabase database;
 	private SchedulerDBHelper dbHelper;
@@ -246,6 +250,83 @@ public class SchedulerDBAdapter {
 	public boolean deleteTasks(long id) {
 		return database.delete(TASK_TABLE_NAME, TASK_COLUMN_FK_SCHEDULERS + "=" + id, null) > 0;
 	}
+	
+	
+	/**
+	 * Insert a new image for task.
+	 * 
+	 * @param imageBytes Image for task
+	 * 
+	 * @return id of new image
+	 */
+	public long insertImage(byte[] imageBytes) {
+		ContentValues initialValues = createImageContentValues(imageBytes);
+		return database.insert(IMAGES_TABLE_NAME, null, initialValues);
+	}
+	
+	/**
+	 * Delete all images. 
+	 * 
+	 * @return true if all schedulers have deleted, else false
+	 */
+	public boolean deleteAllImages() {
+		return database.delete(IMAGES_TABLE_NAME, null , null) > 0;
+	}
+
+	/**
+	 * Delete a image.
+	 * 
+	 * @param id Identifier of image
+	 * 
+	 * @return true if oimage has deleted, else false
+	 */
+	public boolean deleteImage(long id) {
+		deleteTasks(id);
+		return database.delete(IMAGES_TABLE_NAME, IMAGES_PRIMARY_KEY + "=" + id, null) > 0;
+	}
+
+	/**
+	 * Load all images from database.
+	 * 
+	 * @param sort Sorting field 
+	 * 
+	 * @return Cursor with all images of database
+	 */
+	public Cursor loadImages(String sort) {
+		return database.query(IMAGES_TABLE_NAME, new String[] { IMAGES_PRIMARY_KEY, IMAGES_COLUMN_IMAGE },
+				null, null, null, null, sort);
+	}
+
+	/**
+	 * Load all images from database backup.
+	 * 
+	 * @param sort Sorting field 
+	 * 
+	 * @return Cursor with all images of database backup
+	 */	
+	public Cursor loadImagesBackup() {
+		return database.query(IMAGES_PRIMARY_KEY, null, null, null, null, null, null);
+	}
+
+	/**
+	 * Load a image from database.
+	 * 
+	 * @param id Id of the image
+	 * 
+	 * @return Cursor with image by id
+	 * 
+	 * @throws SQLException
+	 */
+	public Cursor getImage(long id) throws SQLException {
+		Cursor mCursor = database.query(true, IMAGES_TABLE_NAME, new String[] {
+				IMAGES_PRIMARY_KEY, IMAGES_COLUMN_IMAGE},
+				IMAGES_PRIMARY_KEY + "=" + id, null, null, null, null, null);
+		if (mCursor != null) {
+			mCursor.moveToFirst();
+		}
+		return mCursor;
+	}
+	
 	/**
 	 * Creates a ContentValues object.
 	 * 
@@ -287,6 +368,21 @@ public class SchedulerDBAdapter {
 	 */
 	private ContentValues createSchedulerContentValues(String name) {
 		return createSchedulerContentValues(name, null);
+	}
+	
+	/**
+	 * Creates a ContentValues object.
+	 * 
+	 * @param imageBytes Bytes of an image
+	 * 
+	 * @return ContentValues object
+	 */
+	private ContentValues createImageContentValues(byte[] imageBytes) {
+		ContentValues values = new ContentValues();
+		if (imageBytes != null) {
+			values.put(IMAGES_COLUMN_IMAGE, imageBytes);
+		}
+		return values;
 	}
 	
 	/**
