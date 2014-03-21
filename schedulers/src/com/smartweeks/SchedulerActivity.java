@@ -37,6 +37,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,7 +54,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.smartweeks.R;
 import com.smartweeks.db.SchedulerDBAdapter;
 
 public class SchedulerActivity extends ListActivity implements OnSharedPreferenceChangeListener {
@@ -105,6 +105,7 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 		dbAdapter.open();
 		
 		if (dbAdapter.getDBHelper().isFirstTime()) {
+			saveImagesToDB();
 			Intent spalshIntent = new Intent().setClass(this, SplashScreenActivity.class);
 			startActivity(spalshIntent);
 			dbAdapter.getDBHelper().setFirstTime(false);
@@ -112,6 +113,32 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 		
 		cursor = dbAdapter.loadSchedulers(SchedulerDBAdapter.SCHEDULER_COLUMN_NAME);
 		startManagingCursor(cursor);
+	}
+	
+	/**
+	 * Save images from resources to database.
+	 */
+	private void saveImagesToDB() {
+		
+		int[] iconIds = { R.drawable.blackboard_icon, R.drawable.homework_icon, R.drawable.games_icon, R.drawable.paint_icon,
+				R.drawable.music_icon, R.drawable.guitar_icon, R.drawable.piano_icon, R.drawable.drums_icon, 
+				R.drawable.beach_icon, R.drawable.birthday_icon, R.drawable.museum_icon, R.drawable.laptop_icon,
+				R.drawable.doctor_icon, R.drawable.bouncycastle_icon, R.drawable.swing_icon, R.drawable.cinema_icon, R.drawable.theatre_icon, R.drawable.grandparents_icon,
+				R.drawable.english_icon, R.drawable.football_icon, R.drawable.ballet_icon, R.drawable.basketball_icon, R.drawable.swimming_icon, 
+				R.drawable.bike_icon, R.drawable.bowling_icon, R.drawable.karate_icon, R.drawable.rugby_icon, R.drawable.tennis_icon, 
+				R.drawable.present_icon, R.drawable.tree_icon};
+
+		byte[] img = null;
+		Bitmap bitmap = null;
+		ByteArrayOutputStream bos = null;
+		for (int iconId : iconIds) {
+
+			bitmap = BitmapFactory.decodeResource(getResources(), iconId);
+			bos = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+			img = bos.toByteArray();
+			dbAdapter.insertImage(img);
+		}
 	}
 	
 	@Override

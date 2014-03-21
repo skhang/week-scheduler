@@ -28,6 +28,8 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -64,6 +66,7 @@ import com.smartweeks.db.SchedulerDBAdapter;
  * touch event starts a drag-drop.
  * 
  */
+@SuppressLint("UseSparseArrays")
 public class DragActivity extends Activity implements View.OnLongClickListener, View.OnClickListener, View.OnTouchListener {
 	
 	// Font path
@@ -73,7 +76,7 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	
 	private DragController mDragController; // Object that handles a drag-drop sequence. It intersacts with DragSource and DropTarget objects.
 	private DragLayer mDragLayer; // The ViewGroup within which an object can be dragged.
-	private DeleteZone mDeleteZone; // A drop target that is used to remove objects from the screen.
+	//private DeleteZone mDeleteZone; // A drop target that is used to remove objects from the screen.
 	private boolean mLongClickStartsDrag = true; // If true, it takes a long click to start the drag operation. Otherwise, any touch event starts a  drag.
 	
 	private GridView gridView;
@@ -87,9 +90,14 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 
 		setContentView(R.layout.grid_scheduler);
 		
+		// Open database connection
+		dbAdapter = SchedulerDBAdapter.getInstace(this);
+		dbAdapter.open();
+		
+		Map<Integer,Bitmap> allImagesMap = loadAllTasksFromDB();
 		Map<Integer,Integer> taskMap = loadSchedulerTasks();
 		gridView = (GridView) findViewById(R.id.image_grid_view);
-		gridView.setAdapter(new ImageCellAdapter(this, taskMap));
+		gridView.setAdapter(new ImageCellAdapter(this, taskMap, allImagesMap));
 
 		mDragController = new DragController(this);
 		mDragLayer = (DragLayer) findViewById(R.id.drag_layer);
@@ -98,9 +106,9 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		
 		mDragController.setDragListener(mDragLayer);
 
-		mDeleteZone = (DeleteZone) findViewById(R.id.delete_zone_view);
+		//mDeleteZone = (DeleteZone) findViewById(R.id.delete_zone_view);
 
-		loadAllTasks();
+		
 		
 		loadHeader();
 		
@@ -155,8 +163,6 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 		textViewDate.setText(currentDate);
 		textViewDate.setTextSize(getFontSize(this));
 		
-		dbAdapter = SchedulerDBAdapter.getInstace(this);
-		dbAdapter.open();
 		Cursor cursor = dbAdapter.getTaskByIdScheduler(Long.valueOf(this.schedulerId));
 		if (cursor != null && cursor.moveToFirst()) {
 			do {				
@@ -185,34 +191,47 @@ public class DragActivity extends Activity implements View.OnLongClickListener, 
 	    return valueWide;
 	}
 	
-	private void loadAllTasks() {
+	/**
+	 * Load all tasks from data base.
+	 * 
+	 * @return Map<Integer,Bitmap> key=idMage, value=image bitmap
+	 */
+	private Map<Integer,Bitmap> loadAllTasksFromDB() {
+		
+		Map<Integer,Bitmap> allImagesMap = new HashMap<Integer,Bitmap>();
 		
 		myGallery = (LinearLayout) findViewById(R.id.mygallery);
 
-		int[] iconIds = {R.drawable.blackboard_icon, R.drawable.homework_icon, R.drawable.games_icon, R.drawable.paint_icon,
-				R.drawable.music_icon, R.drawable.guitar_icon, R.drawable.piano_icon, R.drawable.drums_icon, 
-				R.drawable.beach_icon, R.drawable.birthday_icon, R.drawable.museum_icon, R.drawable.laptop_icon,
-				R.drawable.doctor_icon, R.drawable.bouncycastle_icon, R.drawable.swing_icon, R.drawable.cinema_icon, R.drawable.theatre_icon, R.drawable.grandparents_icon,
-				R.drawable.english_icon, R.drawable.football_icon, R.drawable.ballet_icon, R.drawable.basketball_icon, R.drawable.swimming_icon, 
-				R.drawable.bike_icon, R.drawable.bowling_icon, R.drawable.karate_icon, R.drawable.rugby_icon, R.drawable.tennis_icon, 
-				R.drawable.present_icon, R.drawable.tree_icon};
-		
-		for (int iconId : iconIds) {
-			ImageCell newView = new ImageCell(this);
-			newView.setTag(iconId);
-			newView.setImageResource(iconId);
-			
-			newView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-			newView.setScaleType(ScaleType.FIT_XY);
-			newView.setAdjustViewBounds(true);
-			
-			newView.mEmpty = false;
-			newView.mCellNumber = -1;
-			newView.setOnClickListener(this);
-			newView.setOnLongClickListener(this);
-			newView.setOnTouchListener(this);
-			myGallery.addView(newView);
+		Cursor cursor = dbAdapter.loadImages(SchedulerDBAdapter.IMAGES_PRIMARY_KEY);
+		if (cursor != null && cursor.moveToFirst()) {
+			do {
+				int columnId = cursor.getColumnIndex(SchedulerDBAdapter.IMAGES_PRIMARY_KEY);
+				int id = cursor.getInt(columnId);
+				int columnImage = cursor.getColumnIndex(SchedulerDBAdapter.IMAGES_COLUMN_IMAGE);
+				byte[] imageBytes = cursor.getBlob(columnImage);
+				Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+				
+				allImagesMap.put(id, bitmap);
+				
+				ImageCell newView = new ImageCell(this);
+				newView.setTag(id);
+				newView.setImageBitmap(bitmap);
+				
+				newView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+				newView.setScaleType(ScaleType.FIT_XY);
+				newView.setAdjustViewBounds(true);
+				
+				newView.mEmpty = false;
+				newView.mCellNumber = -1;
+				newView.setOnClickListener(this);
+				newView.setOnLongClickListener(this);
+				newView.setOnTouchListener(this);
+				myGallery.addView(newView);
+		    } while (cursor.moveToNext());
 		}
+		cursor.close();
+		
+		return allImagesMap;
 	}
 
 	/**

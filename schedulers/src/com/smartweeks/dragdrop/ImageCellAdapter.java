@@ -24,6 +24,7 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -41,10 +42,12 @@ public class ImageCellAdapter extends BaseAdapter {
 	public ViewGroup mParentView = null;
 	private Context mContext;
 	Map<Integer,Integer> taskMap;
+	Map<Integer,Bitmap> allImagesMap;
 	
-	public ImageCellAdapter(Context c, Map<Integer,Integer> taskMap) {
+	public ImageCellAdapter(Context c, Map<Integer,Integer> taskMap, Map<Integer,Bitmap> allImagesMap) {
 		mContext = c;
 		this.taskMap = taskMap;
+		this.allImagesMap = allImagesMap;
 	}
 
 	public int getCount() {
@@ -60,7 +63,7 @@ public class ImageCellAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
-
+	
 	/**
 	 * Return a view object for the grid.
 	 * 
@@ -74,7 +77,7 @@ public class ImageCellAdapter extends BaseAdapter {
 		if (convertView == null) {
 			if (imageId != null) {
 				v = new ImageCell(mContext);
-				v.setImageResource(imageId);
+				v.setImageBitmap(allImagesMap.get(imageId));
 				v.setTag(imageId);
 				v.mEmpty = false;
 				v.setBackgroundResource(R.color.cell_filled);
