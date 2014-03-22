@@ -20,15 +20,20 @@ package com.smartweeks;
  * Copyright 2013 Iker Canarias.
  */
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
-import com.smartweeks.R;
-
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -36,7 +41,14 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
+
+import com.smartweeks.db.SchedulerDBAdapter;
+import com.smartweeks.tasks.TaskItem;
+import com.smartweeks.tasks.TaskItemAdapter;
 
 public class PrefsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
@@ -46,10 +58,11 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		addPreferencesFromResource(R.xml.prefs);
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-		addDialog();
+		addAboutDialog();
+		addTaskManagerDialog();
 	}
 	
-	private void addDialog() {
+	private void addAboutDialog() {
 		
 		Preference dialogPreference = (Preference) getPreferenceScreen().findPreference("dialog_preference_about");
 		dialogPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -72,6 +85,90 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		        }
 		    }
 		);
+	}
+	
+	private void addTaskManagerDialog() {
+		
+		Preference dialogPreference = (Preference) getPreferenceScreen().findPreference("dialog_preference_manage_tasks");
+		dialogPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		        public boolean onPreferenceClick(Preference preference) {
+		        	
+		        	final SchedulerDBAdapter dbAdapter = SchedulerDBAdapter.getInstace(preference.getContext());
+		        	
+		        	// Create a Dialog component
+					final Dialog dialog = new Dialog(preference.getContext());
+					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+					dialog.setContentView(R.layout.images_dialog);
+
+					// Prepare ListView in dialog
+					ListView dialogListView = (ListView) dialog.findViewById(R.id.tasksList);
+					
+					final List<TaskItem> allImages = loadAllTasksFromDB();
+					final TaskItemAdapter adapter = new TaskItemAdapter(preference.getContext(), R.layout.images_dialog_rom, allImages);
+					dialogListView.setAdapter(adapter);
+
+					ImageButton dialogNewTaskButton = (ImageButton) dialog.findViewById(R.id.imageButton_new_image);
+					dialogNewTaskButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							dialog.dismiss();
+						}
+					});
+
+					ImageButton dialogDeleteTaskButton = (ImageButton) dialog.findViewById(R.id.imageButton_delete_image);
+					dialogDeleteTaskButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Set<Integer> selectedItems = adapter.getSelectedItems();
+							List<TaskItem> tasksToDelete = new ArrayList<TaskItem>();
+							for (Integer currentId : selectedItems) {
+								TaskItem item = allImages.get(currentId);
+								dbAdapter.deleteImage(item.getId());
+								tasksToDelete.add(item);
+							}
+							
+							// Update adapter
+							for (TaskItem itemToDelete: tasksToDelete) {
+								adapter.remove(itemToDelete);
+							}
+							adapter.clearSelectedItems();
+							adapter.notifyDataSetChanged();
+						}
+					});
+					
+					dialog.show();
+		            return true;
+		        }
+		    }
+		);
+	}
+	
+	/**
+	 * Load all tasks from data base.
+	 * 
+	 * @return List<TaskItem> allImages
+	 */
+	@SuppressLint("UseSparseArrays")
+	private List<TaskItem> loadAllTasksFromDB() {
+		
+		List<TaskItem> allImages = new ArrayList<TaskItem>();
+		
+		SchedulerDBAdapter dbAdapter = SchedulerDBAdapter.getInstace(this);
+		dbAdapter.open();
+		Cursor cursor = dbAdapter.loadImages(SchedulerDBAdapter.IMAGES_PRIMARY_KEY);
+		if (cursor != null && cursor.moveToFirst()) {
+			do {
+				int columnId = cursor.getColumnIndex(SchedulerDBAdapter.IMAGES_PRIMARY_KEY);
+				int id = cursor.getInt(columnId);
+				int columnImage = cursor.getColumnIndex(SchedulerDBAdapter.IMAGES_COLUMN_IMAGE);
+				byte[] imageBytes = cursor.getBlob(columnImage);
+				Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+				allImages.add(new TaskItem(id, bitmap));
+		    } while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		return allImages;
 	}
 	
 	public static void updateLanguage(Context context, String language) {
@@ -115,7 +212,8 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		
 		setPreferenceScreen(null);
 		addPreferencesFromResource(R.xml.prefs);
-		addDialog();
+		addAboutDialog();
+		addTaskManagerDialog();
 	}
 	
 	@Override

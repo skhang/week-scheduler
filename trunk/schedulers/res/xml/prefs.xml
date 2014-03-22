@@ -22,6 +22,11 @@
             android:summary=""
             android:title="@string/pref_choose_language" />
         
+        <Preference
+            android:key="dialog_preference_manage_tasks"
+            android:summary="@string/pref_task_management"
+            android:title="@string/pref_task_management_title" />
+        
     </PreferenceCategory>
     
     <PreferenceCategory

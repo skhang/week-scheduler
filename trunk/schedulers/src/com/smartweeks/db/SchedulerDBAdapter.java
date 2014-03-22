@@ -281,7 +281,6 @@ public class SchedulerDBAdapter {
 	 * @return true if oimage has deleted, else false
 	 */
 	public boolean deleteImage(long id) {
-		deleteTasks(id);
 		return database.delete(IMAGES_TABLE_NAME, IMAGES_PRIMARY_KEY + "=" + id, null) > 0;
 	}
 
