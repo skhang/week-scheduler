@@ -251,6 +251,16 @@ public class SchedulerDBAdapter {
 		return database.delete(TASK_TABLE_NAME, TASK_COLUMN_FK_SCHEDULERS + "=" + id, null) > 0;
 	}
 	
+	/**
+	 * Delete all tasks by image id.
+	 * 
+	 * @param id Identifier of image
+	 * 
+	 * @return true if tasks have been deleted, else false
+	 */
+	public boolean deleteTasksByImageId(long id) {
+		return database.delete(TASK_TABLE_NAME, TASK_COLUMN_ID_IMAGE + "=" + id, null) > 0;
+	}
 	
 	/**
 	 * Insert a new image for task.

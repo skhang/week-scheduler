@@ -152,7 +152,10 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 							List<TaskItem> tasksToDelete = new ArrayList<TaskItem>();
 							for (Integer currentId : selectedItems) {
 								TaskItem item = allImages.get(currentId);
+								// Remove image
 								dbAdapter.deleteImage(item.getId());
+								// Remove tasks associated
+								dbAdapter.deleteTasksByImageId(item.getId());
 								tasksToDelete.add(item);
 							}
 							
@@ -227,11 +230,14 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 			if (extras != null) {
 				Bitmap photo = extras.getParcelable("data");
 				if (photo != null) {
+					
+					// Insert image into database
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
 					photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
 					byte[] byteArray = stream.toByteArray();
 					long id = dbAdapter.insertImage(byteArray);
 					
+					// Add image to adapter
 					adapter.add(new TaskItem((int)id, photo));
 					adapter.notifyDataSetChanged();
 				}
