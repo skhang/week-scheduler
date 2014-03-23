@@ -20,31 +20,43 @@ package com.smartweeks;
  * Copyright 2013 Iker Canarias.
  */
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.smartweeks.db.SchedulerDBAdapter;
 import com.smartweeks.tasks.TaskItem;
@@ -52,14 +64,30 @@ import com.smartweeks.tasks.TaskItemAdapter;
 
 public class PrefsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
+	private SchedulerDBAdapter dbAdapter;
+	private TaskItemAdapter adapter;
+			
+	private Uri mImageCaptureUri;
+	private AlertDialog cameraDialog;
+	private Bitmap bitmap;
+	
+	private static final int PICK_FROM_CAMERA = 1;
+	private static final int CROP_FROM_CAMERA = 2;
+	private static final int PICK_FROM_FILE = 3;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.prefs);
 		
+		dbAdapter = SchedulerDBAdapter.getInstace(this);
+		dbAdapter.open();
+		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+		
 		addAboutDialog();
 		addTaskManagerDialog();
+		buildPictureDialog();
 	}
 	
 	private void addAboutDialog() {
@@ -93,7 +121,7 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		dialogPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		        public boolean onPreferenceClick(Preference preference) {
 		        	
-		        	final SchedulerDBAdapter dbAdapter = SchedulerDBAdapter.getInstace(preference.getContext());
+		        	dbAdapter = SchedulerDBAdapter.getInstace(preference.getContext());
 		        	
 		        	// Create a Dialog component
 					final Dialog dialog = new Dialog(preference.getContext());
@@ -104,14 +132,16 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 					ListView dialogListView = (ListView) dialog.findViewById(R.id.tasksList);
 					
 					final List<TaskItem> allImages = loadAllTasksFromDB();
-					final TaskItemAdapter adapter = new TaskItemAdapter(preference.getContext(), R.layout.images_dialog_rom, allImages);
+					adapter = new TaskItemAdapter(preference.getContext(), R.layout.images_dialog_rom, allImages);
 					dialogListView.setAdapter(adapter);
 
 					ImageButton dialogNewTaskButton = (ImageButton) dialog.findViewById(R.id.imageButton_new_image);
 					dialogNewTaskButton.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							dialog.dismiss();
+							//dialog.dismiss();
+							// Open camera/galley dialog
+							cameraDialog.show();
 						}
 					});
 
@@ -143,6 +173,154 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		);
 	}
 	
+	private void buildPictureDialog() {
+
+		final String[] items = new String[] { getResources().getString(R.string.from_camera), getResources().getString(R.string.from_gallery), getResources().getString(R.string.cancel) };
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, items);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setTitle(getResources().getString(R.string.select_image));
+		builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int item) { 
+				if (item == 0) {
+					// Pick from camera
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg"));
+					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+					intent.putExtra("return-data", true);
+					startActivityForResult(intent, PICK_FROM_CAMERA);
+					
+				} else if (item == 1) { 
+					// Pick from file
+					Intent intent = new Intent();
+					intent.setType("image/*");
+					intent.setAction(Intent.ACTION_GET_CONTENT);
+					startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.complete_action)), PICK_FROM_FILE);
+					
+				} else {
+					// Cancel - close current dialog
+					cameraDialog.dismiss();
+				}
+			}
+		});
+
+		cameraDialog = builder.create();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode != RESULT_OK)
+			return;
+
+		switch (requestCode) {
+		case PICK_FROM_CAMERA:
+			doCrop();
+
+			break;
+
+		case PICK_FROM_FILE:
+			mImageCaptureUri = data.getData();
+			doCrop();
+			break;
+
+		case CROP_FROM_CAMERA:
+			Bundle extras = data.getExtras();
+			if (extras != null) {
+				Bitmap photo = extras.getParcelable("data");
+				if (photo != null) {
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+					byte[] byteArray = stream.toByteArray();
+					long id = dbAdapter.insertImage(byteArray);
+					
+					adapter.add(new TaskItem((int)id, photo));
+					adapter.notifyDataSetChanged();
+				}
+			}
+
+			File f = new File(mImageCaptureUri.getPath());
+			if (f != null && f.exists()) {
+				f.delete();
+			}
+
+			break;
+		}
+	}
+	
+	 private void doCrop() {
+		final ArrayList<CropOption> cropOptions = new ArrayList<CropOption>();
+
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setType("image/*");
+
+		List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, 0);
+
+		int size = list.size();
+
+		if (size == 0) {
+			
+			Toast.makeText(this, getResources().getString(R.string.not_image_crop_app), Toast.LENGTH_SHORT).show();
+			return;
+			
+		} else {
+			
+			intent.setData(mImageCaptureUri);
+
+			intent.putExtra("outputX", 256);
+			intent.putExtra("outputY", 256);
+			intent.putExtra("aspectX", 1);
+			intent.putExtra("aspectY", 1);
+			intent.putExtra("scale", true);
+			intent.putExtra("return-data", true);
+
+			if (size == 1) {
+				Intent i = new Intent(intent);
+				ResolveInfo res = list.get(0);
+
+				i.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+
+				startActivityForResult(i, CROP_FROM_CAMERA);
+			} else {
+				for (ResolveInfo res : list) {
+					final CropOption co = new CropOption();
+
+					co.title = getPackageManager().getApplicationLabel(res.activityInfo.applicationInfo);
+					co.icon = getPackageManager().getApplicationIcon(res.activityInfo.applicationInfo);
+					co.appIntent = new Intent(intent);
+
+					co.appIntent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+
+					cropOptions.add(co);
+				}
+
+				CropOptionAdapter adapter = new CropOptionAdapter(getApplicationContext(), cropOptions);
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setTitle(getResources().getString(R.string.choose_crop_app));
+				builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						startActivityForResult(cropOptions.get(item).appIntent, CROP_FROM_CAMERA);
+					}
+				});
+
+				builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+					@Override
+					public void onCancel(DialogInterface dialog) {
+
+						if (mImageCaptureUri != null) {
+							getContentResolver().delete(mImageCaptureUri, null, null);
+							mImageCaptureUri = null;
+						}
+					}
+				});
+
+				AlertDialog alert = builder.create();
+
+				alert.show();
+			}
+		}
+	}
+	
 	/**
 	 * Load all tasks from data base.
 	 * 
@@ -153,8 +331,6 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		
 		List<TaskItem> allImages = new ArrayList<TaskItem>();
 		
-		SchedulerDBAdapter dbAdapter = SchedulerDBAdapter.getInstace(this);
-		dbAdapter.open();
 		Cursor cursor = dbAdapter.loadImages(SchedulerDBAdapter.IMAGES_PRIMARY_KEY);
 		if (cursor != null && cursor.moveToFirst()) {
 			do {
