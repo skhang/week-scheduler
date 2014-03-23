@@ -216,7 +216,7 @@ public class SchedulerActivity extends ListActivity implements OnSharedPreferenc
 					@Override
 					public void onClick(View v) {
 						// Open camera/galley dialog
-						cameraDialog.show();					
+						cameraDialog.show();
 					}
 				});
 			}
