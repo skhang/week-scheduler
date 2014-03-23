@@ -69,7 +69,6 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 			
 	private Uri mImageCaptureUri;
 	private AlertDialog cameraDialog;
-	private Bitmap bitmap;
 	
 	private static final int PICK_FROM_CAMERA = 1;
 	private static final int CROP_FROM_CAMERA = 2;
