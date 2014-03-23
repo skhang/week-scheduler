@@ -40,6 +40,10 @@
 	<string name="pref_license">Esta aplicación se encuentra bajo la licencia GNU GENERAL PUBLIC LICENSE (GPL v3). Más inforación en https://code.google.com/p/week-scheduler/</string>
 	<string name="pref_dialog_title">Desarrollador de la aplicación</string>
 	<string name="pref_default_language">Idioma por defecto</string>
+	<string name="pref_new_task">Nueva actividad</string>
+	<string name="pref_delete_task">Eliminar actividad</string>
+	<string name="pref_task_management_title">Gestión de actividades</string>
+	<string name="pref_task_management">Elimina o crea actividades a partir de tus propias imágenes.</string>
 	<string name="instructions">Presiona y mantén para arrastrar la imagen.</string>
 	
     <!-- Drag Drop -->
