@@ -41,7 +41,7 @@
 	<string name="pref_default_language">Hizkuntza lehenetsia</string>
 	<string name="pref_new_task">Zeregin berria</string>
 	<string name="pref_delete_task">Zeregin ezabatu</string>
-	<string name="pref_task_management_title">Zeregiaren kudeaketa</string>
+	<string name="pref_task_management_title">Zereginak</string>
 	<string name="pref_task_management">Ezabatu eta sortu zereginak zure irudiekin.</string>
 	
 	<string name="instructions">Sakatu eta mantendu irudia arrastatzeko.</string>

@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="324dp"
-    android:layout_height="fill_parent"
+    android:layout_height="324dp"
     android:background="@color/black"
     android:orientation="vertical" >
 
@@ -16,7 +16,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:orientation="horizontal" >
-
+ 
+ 			<ImageButton
+                android:id="@+id/imageButton_back"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:contentDescription="@string/back"
+                android:gravity="right"
+                android:src="@drawable/ic_action_previous_item" />
+ 			
             <TextView
                 android:id="@+id/textView_dialogTitle"
                 android:layout_width="wrap_content"
