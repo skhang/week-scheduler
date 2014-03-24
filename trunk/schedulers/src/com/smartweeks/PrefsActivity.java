@@ -134,11 +134,18 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 					adapter = new TaskItemAdapter(preference.getContext(), R.layout.images_dialog_rom, allImages);
 					dialogListView.setAdapter(adapter);
 
+					ImageButton dialogCloseButton = (ImageButton) dialog.findViewById(R.id.imageButton_back);
+					dialogCloseButton.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							dialog.dismiss();
+						}
+					});
+					
 					ImageButton dialogNewTaskButton = (ImageButton) dialog.findViewById(R.id.imageButton_new_image);
 					dialogNewTaskButton.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							//dialog.dismiss();
 							// Open camera/galley dialog
 							cameraDialog.show();
 						}
