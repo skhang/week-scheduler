@@ -129,6 +129,7 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 
 					// Prepare ListView in dialog
 					ListView dialogListView = (ListView) dialog.findViewById(R.id.tasksList);
+					dialogListView.setEmptyView(dialog.findViewById(R.id.empty));
 					
 					final List<TaskItem> allImages = loadAllTasksFromDB();
 					adapter = new TaskItemAdapter(preference.getContext(), R.layout.images_dialog_rom, allImages);

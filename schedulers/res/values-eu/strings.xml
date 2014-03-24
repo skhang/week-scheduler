@@ -43,6 +43,7 @@
 	<string name="pref_delete_task">Zeregin ezabatu</string>
 	<string name="pref_task_management_title">Zereginak</string>
 	<string name="pref_task_management">Ezabatu eta sortu zereginak zure irudiekin.</string>
+	<string name="pref_task_management_no_tasks">Ez dago zereginik</string>
 	
 	<string name="instructions">Sakatu eta mantendu irudia arrastatzeko.</string>
 	

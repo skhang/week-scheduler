@@ -44,6 +44,8 @@
 	<string name="pref_delete_task">Eliminar actividad</string>
 	<string name="pref_task_management_title">Actividades</string>
 	<string name="pref_task_management">Elimina o crea actividades a partir de tus propias imágenes.</string>
+	<string name="pref_task_management_no_tasks">No existe ninguna tarea</string>
+	
 	<string name="instructions">Presiona y mantén para arrastrar la imagen.</string>
 	
     <!-- Drag Drop -->
