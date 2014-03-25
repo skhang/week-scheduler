@@ -42,9 +42,12 @@
 	<string name="pref_default_language">Default language</string>
 	<string name="pref_new_task">New task</string>
 	<string name="pref_delete_task">Delete task</string>
-	<string name="pref_task_management_title">Tasks</string>
+	<string name="pref_task_title">Tasks</string>
+	<string name="pref_task_management_title">Tasks management</string>
 	<string name="pref_task_management">Manage your own tasks. Delete or add new tasks for your weekly planings.</string>
 	<string name="pref_task_management_no_tasks">No tasks</string>
+	<string name="pref_task_restore_title">Restore tasks</string>
+	<string name="pref_task_restore">Remove current task and restore default task.</string>
 	
 	<string name="instructions">Press and hold to drag an image.</string>
 	

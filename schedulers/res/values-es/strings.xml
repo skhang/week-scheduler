@@ -42,9 +42,12 @@
 	<string name="pref_default_language">Idioma por defecto</string>
 	<string name="pref_new_task">Nueva actividad</string>
 	<string name="pref_delete_task">Eliminar actividad</string>
-	<string name="pref_task_management_title">Actividades</string>
+	<string name="pref_task_title">Actividades</string>
+	<string name="pref_task_management_title">Gestionar actividades</string>
 	<string name="pref_task_management">Elimina o crea actividades a partir de tus propias imágenes.</string>
 	<string name="pref_task_management_no_tasks">No existe ninguna tarea</string>
+	<string name="pref_task_restore_title">Restaurar actividades</string>
+	<string name="pref_task_restore">Elimina todas las actividades actuales y restaura las actividades por defecto.</string>
 	
 	<string name="instructions">Presiona y mantén para arrastrar la imagen.</string>
 	

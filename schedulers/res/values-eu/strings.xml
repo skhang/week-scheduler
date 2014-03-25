@@ -41,9 +41,12 @@
 	<string name="pref_default_language">Hizkuntza lehenetsia</string>
 	<string name="pref_new_task">Zeregin berria</string>
 	<string name="pref_delete_task">Zeregin ezabatu</string>
-	<string name="pref_task_management_title">Zereginak</string>
+	<string name="pref_task_title">Zereginak</string>
+	<string name="pref_task_management_title">Zeregiaren kudeaketa</string>
 	<string name="pref_task_management">Ezabatu eta sortu zereginak zure irudiekin.</string>
 	<string name="pref_task_management_no_tasks">Ez dago zereginik</string>
+	<string name="pref_task_restore_title">Restore tasks</string>
+	<string name="pref_task_restore">Remove current task and restore default task.</string>
 	
 	<string name="instructions">Sakatu eta mantendu irudia arrastatzeko.</string>
 	
