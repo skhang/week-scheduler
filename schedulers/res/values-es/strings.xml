@@ -48,7 +48,25 @@
 	<string name="pref_task_management_no_tasks">No existe ninguna tarea</string>
 	<string name="pref_task_restore_title">Restaurar actividades</string>
 	<string name="pref_task_restore">Elimina todas las actividades actuales y restaura las actividades por defecto.</string>
-	
+	<string name="pref_task_restoring">Restaurando actividades por defecto</string>
+	<string name="pref_task_restored">Las actividades se han restaurado correctamente.</string>
+	<string name="pref_task_restore_confirm">¿Quieres eliminar todas las activiades actuales y restaurar las actividades por defecto?</string>
+	<string name="pref_task_import_title">Importar actividades</string>
+	<string name="pref_task_import">Importar actividades desde un fichero externo.</string>
+	<string name="pref_task_import_confirm">¿Quieres importar las actividades desde un fichero externo? Esta operación eliminará todas las imágenes actuales y sus actividades asociadas.</string>
+	<string name="pref_task_imported">Las actividades se han importado correctamente.</string>
+	<string name="pref_task_importing">Importando actividades</string>
+	<string name="pref_task_export_title">Exportar actividades</string>
+	<string name="pref_task_export">Exportar actividades a un fichero externo.</string>
+	<string name="pref_task_export_confirm">¿Quieres exportar todas las actividades actuales?</string>
+	<string name="pref_task_exported">Las actividades se han exportado correctamente al fichero \'smart_weeks_backup.db\'.</string>
+	<string name="pref_task_exporting">Exportando actividades</string>
+	<string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="msg_no_sdcard_found">No se ha encontrado ninguna tarjeta SD en el dispositivo.</string>
+    <string name="msg_error_importing_database">Error general importando la base de datos.</string>
+    <string name="msg_error_exporting_database">Error general exportando la base de datos.</string>
+    
 	<string name="instructions">Presiona y mantén para arrastrar la imagen.</string>
 	
     <!-- Drag Drop -->

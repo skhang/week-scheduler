@@ -2,18 +2,38 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <PreferenceCategory
+        android:summary="@string/pref_task_title"
+        android:title="@string/pref_task_title" >
+        <Preference
+            android:key="dialog_preference_manage_tasks"
+            android:summary="@string/pref_task_management"
+            android:title="@string/pref_task_management_title" />
+        <Preference
+            android:key="preference_restore_tasks"
+            android:summary="@string/pref_task_restore"
+            android:title="@string/pref_task_restore_title" />
+        <Preference
+            android:key="preference_import_tasks"
+            android:summary="@string/pref_task_import"
+            android:title="@string/pref_task_import_title" />
+        <Preference
+            android:key="preference_export_tasks"
+            android:summary="@string/pref_task_export"
+            android:title="@string/pref_task_export_title" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory
         android:summary="@string/settings"
         android:title="@string/settings" >
         <CheckBoxPreference
             android:key="checkBoxSplashScreen"
             android:summary="@string/pref_show_splash_resp"
             android:title="@string/pref_show_splash" />
-
-         <CheckBoxPreference
+        <CheckBoxPreference
             android:key="checkBoxStartWeekOnSunday"
             android:summary="@string/pref_start_week_resp"
             android:title="@string/pref_start_week" />
-         
+
         <ListPreference
             android:defaultValue="default"
             android:entries="@array/languages"
@@ -21,20 +41,6 @@
             android:key="language"
             android:summary=""
             android:title="@string/pref_choose_language" />
-        
-    </PreferenceCategory>
-    
-    <PreferenceCategory
-        android:summary="@string/pref_task_title"
-        android:title="@string/pref_task_title" >
-        <Preference
-            android:key="dialog_preference_manage_tasks"
-            android:summary="@string/pref_task_management"
-            android:title="@string/pref_task_management_title" />
-       <Preference
-            android:key="dialog_preference_restore_tasks"
-            android:summary="@string/pref_task_restore"
-            android:title="@string/pref_task_restore_title" />
     </PreferenceCategory>
     
     <PreferenceCategory

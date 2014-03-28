@@ -263,6 +263,15 @@ public class SchedulerDBAdapter {
 	}
 	
 	/**
+	 * Delete all tasks. 
+	 * 
+	 * @return true if all tasks have deleted, else false
+	 */
+	public boolean deleteAllTasks() {
+		return database.delete(TASK_TABLE_NAME, null , null) > 0;
+	}
+	
+	/**
 	 * Insert a new image for task.
 	 * 
 	 * @param imageBytes Image for task
