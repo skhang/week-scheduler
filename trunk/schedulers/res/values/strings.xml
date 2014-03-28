@@ -48,7 +48,25 @@
 	<string name="pref_task_management_no_tasks">No tasks</string>
 	<string name="pref_task_restore_title">Restore tasks</string>
 	<string name="pref_task_restore">Remove current task and restore default task.</string>
-	
+	<string name="pref_task_restoring">Restoring tasks</string>
+	<string name="pref_task_restored">Tasks successfully restored</string>
+	<string name="pref_task_restore_confirm">Do you want delete all current tasks and restore default tasks?</string>
+	<string name="pref_task_import_title">Import tasks</string>
+	<string name="pref_task_import">Import tasks from external file.</string>
+	<string name="pref_task_import_confirm">Do you want import current tasks? This operation will remove all current images and tasks associated.</string>
+	<string name="pref_task_imported">Tasks successfully imported.</string>
+	<string name="pref_task_importing">Importing tasks</string>
+	<string name="pref_task_export_title">Export tasks</string>
+	<string name="pref_task_export">Export tasks to external file.</string>
+	<string name="pref_task_export_confirm">Do you want export all current tasks?</string>
+	<string name="pref_task_exported">Tasks successfully exported to \'smart_weeks_backup.db\' file.</string>
+	<string name="pref_task_exporting">Exporting tasks</string>
+	<string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="msg_no_sdcard_found">No SD card found, please insert an SD card.</string>
+    <string name="msg_error_importing_database">General error importing data base.</string>
+    <string name="msg_error_exporting_database">General error exporting data base.</string>
+    
 	<string name="instructions">Press and hold to drag an image.</string>
 	
     <!-- Drag Drop -->

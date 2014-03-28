@@ -27,7 +27,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SchedulerDBHelper extends SQLiteOpenHelper {
 	
 	// DB name and version
-	private static final String DB_NAME = "smart_week.db";
+	public static final String DB_NAME = "smart_week.db";
 	private static final int DB_VERSION = 4;
 	
 	private boolean firstTime = false;

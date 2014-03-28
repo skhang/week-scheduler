@@ -39,15 +39,33 @@
 	<string name="pref_license">Aplikazio honek GNU GENERAL PUBLIC LICENSE (GPL v3) lizentzia dauka. Informazio gehiago https://code.google.com/p/week-scheduler/</string>
 	<string name="pref_dialog_title">Aplikazioaren egilea</string>
 	<string name="pref_default_language">Hizkuntza lehenetsia</string>
-	<string name="pref_new_task">Zeregin berria</string>
-	<string name="pref_delete_task">Zeregin ezabatu</string>
-	<string name="pref_task_title">Zereginak</string>
-	<string name="pref_task_management_title">Zeregiaren kudeaketa</string>
-	<string name="pref_task_management">Ezabatu eta sortu zereginak zure irudiekin.</string>
-	<string name="pref_task_management_no_tasks">Ez dago zereginik</string>
-	<string name="pref_task_restore_title">Restore tasks</string>
-	<string name="pref_task_restore">Remove current task and restore default task.</string>
-	
+	<string name="pref_new_task">Jarduera berria</string>
+	<string name="pref_delete_task">Jarduera ezabatu</string>
+	<string name="pref_task_title">Jarduerak</string>
+	<string name="pref_task_management_title">Jardueren kudeaketa</string>
+	<string name="pref_task_management">Ezabatu eta sortu jarduerak zure irudiekin.</string>
+	<string name="pref_task_management_no_tasks">Ez dago jarduerik</string>
+	<string name="pref_task_restore_title">Berriztatu jarduerak</string>
+	<string name="pref_task_restore">Jarduera ezabatu eta berriztatu.</string>
+	<string name="pref_task_restoring">Jarduerak berriztzen</string>
+	<string name="pref_task_restored">Jarduerak ondo berriztatuak</string>
+	<string name="pref_task_restore_confirm">Jarduerak guztiak ezabatu eta berriztatu nahi duzu?</string>
+	<string name="pref_task_import_title">Jarduerak inportatu</string>
+	<string name="pref_task_import">Jarduerak fitxategi batetik inportatu.</string>
+	<string name="pref_task_import_confirm">Jarduerak inportatu nahi duzu? Eragiketa honek irudi guztiak ezabatuko ditu eta bere jarduerak.</string>
+	<string name="pref_task_imported">Jarduerak ondo inportatu dira.</string>
+	<string name="pref_task_importing">Jaduerak inportatzen</string>
+	<string name="pref_task_export_title">Jarduerak esportatu</string>
+	<string name="pref_task_export">Jarduerak fitxategi batera esportatu.</string>
+	<string name="pref_task_export_confirm">Jarduera guztiak esportatu nahi duzu?</string>
+	<string name="pref_task_exported">Jarduerak \'smart_weeks_backup.db\' fitzategira esportatu dira.</string>
+	<string name="pref_task_exporting">Jarduerak esportatzen</string>
+	<string name="yes">Bai</string>
+    <string name="no">Ez</string>
+    <string name="msg_no_sdcard_found">ez dago SD txatelarik.</string>
+    <string name="msg_error_importing_database">Akats orokorra datu-base inportatzen.</string>
+    <string name="msg_error_exporting_database">Akats orokorra datu-base esportatzen.</string>
+    
 	<string name="instructions">Sakatu eta mantendu irudia arrastatzeko.</string>
 	
     <!-- Drag Drop -->

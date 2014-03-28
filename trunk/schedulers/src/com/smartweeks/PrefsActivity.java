@@ -85,6 +85,9 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 		
 		addAboutDialog();
+		addRestoreTasks();
+		addExportTasksToDB();
+		addImportTasksToDB();
 		addTaskManagerDialog();
 		buildPictureDialog();
 	}
@@ -114,6 +117,93 @@ public class PrefsActivity extends PreferenceActivity implements OnSharedPrefere
 		);
 	}
 	
+	private void addRestoreTasks() {
+		
+		Preference dialogRestoreTasks = (Preference) getPreferenceScreen().findPreference("preference_restore_tasks");
+		dialogRestoreTasks.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+
+				final Preference dialogPreference = preference;
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(preference.getContext());
+				alertDialogBuilder.setTitle(dialogPreference.getContext().getResources().getString(R.string.pref_task_restore_title));
+				// set dialog message
+				alertDialogBuilder.setMessage(dialogPreference.getContext().getResources().getString(R.string.pref_task_restore_confirm)).setCancelable(false)
+				.setPositiveButton(dialogPreference.getContext().getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						new RestoreImagesTask(dialogPreference.getContext(), dbAdapter).execute();
+						dialog.dismiss();
+					}
+				}).setNegativeButton(dialogPreference.getContext().getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
+				return true;
+			}
+
+		});
+	}
+
+	private void addExportTasksToDB() {
+		
+		Preference dialogRestoreTasks = (Preference) getPreferenceScreen().findPreference("preference_export_tasks");
+		dialogRestoreTasks.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+
+				final Preference dialogPreference = preference;
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(preference.getContext());
+				alertDialogBuilder.setTitle(dialogPreference.getContext().getResources().getString(R.string.pref_task_export_title));
+				// set dialog message
+				alertDialogBuilder.setMessage(dialogPreference.getContext().getResources().getString(R.string.pref_task_export_confirm)).setCancelable(false)
+				.setPositiveButton(dialogPreference.getContext().getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						new ExportImagesTask(dialogPreference.getContext()).execute();
+						dialog.dismiss();
+					}
+				}).setNegativeButton(dialogPreference.getContext().getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
+				return true;
+			}
+
+		});
+	}
+
+	private void addImportTasksToDB() {
+		
+		Preference dialogRestoreTasks = (Preference) getPreferenceScreen().findPreference("preference_import_tasks");
+		dialogRestoreTasks.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+
+				final Preference dialogPreference = preference;
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(preference.getContext());
+				alertDialogBuilder.setTitle(dialogPreference.getContext().getResources().getString(R.string.pref_task_import_title));
+				// set dialog message
+				alertDialogBuilder.setMessage(dialogPreference.getContext().getResources().getString(R.string.pref_task_import_confirm)).setCancelable(false)
+				.setPositiveButton(dialogPreference.getContext().getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						new ImportImagesTask(dialogPreference.getContext(), dbAdapter).execute();
+						dialog.dismiss();
+					}
+				}).setNegativeButton(dialogPreference.getContext().getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
+				return true;
+			}
+
+		});
+	}
+
 	private void addTaskManagerDialog() {
 		
 		Preference dialogPreference = (Preference) getPreferenceScreen().findPreference("dialog_preference_manage_tasks");
